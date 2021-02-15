@@ -1,11 +1,15 @@
 'use strict'
+//Imports
 const csv = require('csv-parser');
 const fs = require('fs');
 let results = [];
-
+require('dotenv').config()
 const mongoose = require('mongoose');
+
+//Reads from a .env file but defaults to the string on the right if .env variable doesn't exist
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/books_example';
 
+//Connection to MongoDB, will be moved and called from another file once db is setup for express application
 mongoose.Promise = Promise;
 const db = mongoose.connect(MONGODB_URI, {useNewUrlParser: true})
             .then(() =>
@@ -14,7 +18,7 @@ const db = mongoose.connect(MONGODB_URI, {useNewUrlParser: true})
 
 
 
-
+//Schema for books
 const bookSchema = new mongoose.Schema({
     title: {type: String, required: true},
     author: {type: String, required: true},
@@ -26,9 +30,17 @@ const bookSchema = new mongoose.Schema({
 
 const books = mongoose.model('books', bookSchema);
 
+//Stream to read CSV File and perform operations on the data
 fs.createReadStream('book.csv')
+
+    //Parses each row to be read as a javascript object
     .pipe(csv())
+
+    //Adds csv row object to results array
     .on('data', (data) => results.push(data))
+
+    //At the end of the file stream, pick out the section of each book that we want
+    //Then add those books to the mongodb
     .on('end', () => {
     console.log('CSV file successfully processed');
     let final = results.map((book) => {
@@ -38,15 +50,10 @@ fs.createReadStream('book.csv')
                  publisher: book['publisher'],
                  pages: book['pages'] | '300',
                  description: book['synopsis'] | 'No description avialable' };
-    })
-    final.map(async (book) => {
-        try{
-        await books.create(book)
-        }catch(e){
-            console.log(book['title'])
-            console.log(e);
-        }
     });
+
+    //Bulk insert array book objects into MongoDB
+    books.collection.insertMany(final);
 });
 
-//books.collection.drop();
+//TODO: ADD LINKS TO IMAGES OF BOOK COVERS
