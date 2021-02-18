@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Welcome, Group 2!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misterMEESTAH/CEN4010_Group_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/misterMEESTAH/CEN4010_Group_2/issues"
+  },
+  "homepage": "https://github.com/misterMEESTAH/CEN4010_Group_2#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "mongoose": "^5.11.16",
+    "superagent": "^6.1.0"
+  }
+}
