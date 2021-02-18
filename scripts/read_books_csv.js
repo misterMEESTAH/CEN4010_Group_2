@@ -4,34 +4,12 @@ const csv = require('csv-parser');
 const fs = require('fs');
 let results = [];
 require('dotenv').config()
-const mongoose = require('mongoose');
+const db = require('../src/db/index');
+const books = require('../src/models/book');
 
-//Reads from a .env file but defaults to the string on the right if .env variable doesn't exist
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/books_example';
-
-//Connection to MongoDB, will be moved and called from another file once db is setup for express application
-mongoose.Promise = Promise;
-const db = mongoose.connect(MONGODB_URI, {useNewUrlParser: true})
-            .then(() =>
-                console.log("Successfully connected to MongoDB")
-            );
-
-
-
-//Schema for books
-const bookSchema = new mongoose.Schema({
-    title: {type: String, required: true},
-    author: {type: String, required: true},
-    price: {type: String, required: true},
-    publisher: {type: String, required: true},
-    pages:{type: String, required: true},
-    description: {type: String, required: true}
-});
-
-const books = mongoose.model('books', bookSchema);
 
 //Stream to read CSV File and perform operations on the data
-fs.createReadStream('book.csv')
+fs.createReadStream('books_for_db.csv')
 
     //Parses each row to be read as a javascript object
     .pipe(csv())
@@ -44,16 +22,17 @@ fs.createReadStream('book.csv')
     .on('end', () => {
     console.log('CSV file successfully processed');
     let final = results.map((book) => {
-        return { title: book['title'],
+        return { 
+                 title: book['name'],
+                 image: book['image'],
                  author: book['author'],
-                 price: book['price'] | '200.00',
-                 publisher: book['publisher'],
-                 pages: book['pages'] | '300',
-                 description: book['synopsis'] | 'No description avialable' };
+                 price: book['price'],
+                 category: book['category'],
+                 format: book['format'],
+                 rating: book['book_depository_stars']
+                };
     });
 
     //Bulk insert array book objects into MongoDB
     books.collection.insertMany(final);
 });
-
-//TODO: ADD LINKS TO IMAGES OF BOOK COVERS
