@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "mongoose": "5.11.15",
+    "react": "^17.0.1",
     "superagent": "^6.1.0"
   }
 }
