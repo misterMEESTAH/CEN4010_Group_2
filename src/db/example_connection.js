@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 //Reads from a .env file but defaults to the string on the right if .env variable doesn't exist
-const MONGODB_URI = "mongodb+srv://mbarn049:barnes11@cluster1.nekbz.mongodb.net/sprint2?authSource=admin&retryWrites=true&w=majority";
+const MONGODB_URI = "";
 mongoose.Promise = Promise;
 const db = mongoose.connect(MONGODB_URI, {useNewUrlParser: true,  useUnifiedTopology: true })
             .then(() =>
