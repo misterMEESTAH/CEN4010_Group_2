@@ -28,7 +28,7 @@ app.use(cors())
 app.use(booksrouter);
 //base route
 app.get('/', (req, res) => {
-    res.send("Hello World its kim!");
+    res.send("Hey hey heyyyy");
 })
 
 //Starting the server
