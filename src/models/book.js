@@ -11,6 +11,7 @@ const bookSchema = new mongoose.Schema({
     rating: {type: String, required: true}
 });
 
+//TODO: Add Synopsis for each book
 const books = mongoose.model('books', bookSchema);
 
 module.exports = books;

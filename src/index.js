@@ -32,6 +32,6 @@ app.get('/', (req, res) => {
 })
 
 //Starting the server
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`)
 })
