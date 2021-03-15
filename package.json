@@ -24,11 +24,8 @@
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "mongoose": "5.11.15",
-<<<<<<< Updated upstream
-=======
     "react": "^17.0.1",
     "react-router": "^5.2.0",
->>>>>>> Stashed changes
     "superagent": "^6.1.0"
   }
 }
