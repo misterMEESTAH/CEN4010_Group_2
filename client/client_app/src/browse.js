@@ -1,6 +1,6 @@
 import React from "react";
 import './App.css';
-import getBooksFromDB from "./load_books"
+import booksFromDB from "./load_books"
 
 
 function BookItem(book) {
@@ -21,22 +21,15 @@ function BookList(books) {
     </div>
   )
 }
-function FilterForm() {
-  return(
-    <form>
-
-    </form>
-  )
-}
-
 
 function Browse() {
-  const [books, setBooks] = React.useState({filtered: [], original: []});
-  const [searchQuery, setSearchQuery] = React.useState('' || '');
+  const [booksDefault, setBooksDefault] = React.useState([]);
+  const [books, setBooks] = React.useState([]);
+  const [searchQuery, setSearchQuery] = React.useState(' ');
 
   const getBooks = async () => {
     let books = [];
-    books = await getBooksFromDB;
+    books = await booksFromDB;
     books.sort((firstbook, secondbook) => {
       if(firstbook['title'] < secondbook['title']){
         return -1;
@@ -48,29 +41,29 @@ function Browse() {
       return 0;
     })
     console.log(books)
-    setBooks({filtered: books, original: books});
+    setBooks(books);
+    setBooksDefault(books);
   }
+
   const search = (query) => {
-    const filtered = books['filtered'].filter((book) => {
+    setSearchQuery(query)
+    const filtered = booksDefault.filter((book) => {
       const bookName = book['title'].toLowerCase();
-      return bookName.includes(query);
+      return bookName.includes(query.toLowerCase());
     })
-    console.log(filtered);
-    setBooks({filtered: filtered, original: books['original']});
+    setBooks(filtered);
   }
   //TODO: Set up a for for filtering. Have that form submit an object to this function and use .filter on books['original'] using filter parameters
-  const fitlerbooks = async (fitlers) => {
+  // const fitlerbooks = async (fitlers) => {
 
-  }
-
+  // }
 
   return (
     <div className="browse">
-      <input type="text" placeholder="Search.." name="search" value={searchQuery} onChange={() => setSearchQuery()}></input>
-      <button type="submit" onClick={() => search()}>Submit</button>
+      <input type="text" placeholder="Search.." name="search" value={searchQuery} onChange={(e) => search(e.target.value)}/>
       <div className="book-list">
         <button onClick={async () => getBooks()}>Get Books</button>
-        {BookList(books['filtered'])}
+        {BookList(books)}
       </div>
     </div>
   );
