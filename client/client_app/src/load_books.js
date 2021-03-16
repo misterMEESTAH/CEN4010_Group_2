@@ -14,4 +14,6 @@ const getBooksFromDB = async () => {
     return booksapi['allBooks'];
 };
 
-export default getBooksFromDB()
+const booksFromDB = getBooksFromDB();
+
+export default booksFromDB;
