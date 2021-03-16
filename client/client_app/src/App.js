@@ -1,54 +1,44 @@
 import './App.css';
 import {
-  BrowserRouter as Router,
+  BrowserRouter as HashRouter,
   Switch,
   Route,
-  Link
+  NavLink
 } from "react-router-dom";
+import Home from "./Home";
 import Browse from "./browse";
+import Users from "./Users";
+import WishList from "./WishList";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/browse">Browse</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
+    <HashRouter>
+            <div>
+                <h1>Book Barn</h1>
+                <ul className="header">
+                    <li><NavLink exact to = "/">Home</NavLink></li>
+                    <li><NavLink to = "/Browse">Browse</NavLink></li>
+                    <li><NavLink to = "/Users">Users</NavLink></li>
+                    <li><NavLink to = "/WishList">WishList</NavLink></li>
+                </ul>
+                <div className = "content">
+                  <Route exact path="/" component={Home}/>
+                  <Route path="/Browse" component={Browse}/>
+                  <Route path="/Users" component={Users}/>
+                  <Route path="/WishList" component={WishList}/>
+                </div>
+                </div>
+        </HashRouter>  
 
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/browse">
-            <Browse />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
+//function Home() {
+//  return <h2>Home</h2>;
+//}
 
-function Users() {
-  return <h2>Users</h2>;
-}
+//function Users() {
+//  return <h2>Users</h2>;
+//}
 
 export default App;
