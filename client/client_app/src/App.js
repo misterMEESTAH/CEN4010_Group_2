@@ -1,4 +1,5 @@
 import './App.css';
+import 'semantic-ui-css/semantic.min.css'
 import {
   BrowserRouter as HashRouter,
   Switch,
@@ -9,6 +10,7 @@ import Home from "./Home";
 import Browse from "./browse";
 import Users from "./Users";
 import WishList from "./WishList";
+
 
 function App() {
   return (
