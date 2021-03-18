@@ -64,7 +64,11 @@ function Browse() {
     const filterbygenre = books.filter((book) => {
       return book['category'] === genre;
     })
-    console.log(filterbygenre)
+    if(filterbygenre.length === 0) {
+      const filterbygenre = booksDefault.filter((book) => {
+        return book['category'] === genre;
+      })
+    }
     setBooks(filterbygenre) 
   }
 
@@ -91,24 +95,18 @@ function Browse() {
   return (
     <div className="browse">
       <input type="text" placeholder="Search.." name="search" value={searchQuery} onChange={(e) => search(e.target.value)}/>
-      {GenreDropdown(genres, browseByGenre)}
+      <Dropdown
+        placeholder='Select a Genre'
+        onChange={browseByGenre}
+        selection
+        options={genres}
+      />
       <div className="book-list">
         <button onClick={async () => getBooks()}>Get Books</button>
         {BookList(books)}
       </div>
     </div>
   );
-}
-
-const GenreDropdown = (options, func) => {
-  return (
-  <Dropdown
-    placeholder='Select a Genre'
-    onChange={func}
-    selection
-    options={options}
-  />
-)
 }
 
 export default Browse;
