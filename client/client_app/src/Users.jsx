@@ -82,7 +82,7 @@ class Users extends Component {
         shippingaddress: this.state.shippingaddress
     }
     //sending registered data
-    axios.post('http://localhost:4000/users/signup', registered)
+    axios.post('http://localhost:5000/signup', registered)
         .then(response => console.log(response.data))
 
     this.setState({

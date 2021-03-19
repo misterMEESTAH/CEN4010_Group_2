@@ -5,6 +5,7 @@ const app = express();
 require('dotenv').config();
 const cors = require('cors');
 const booksrouter = require('./routes/books');
+const userRouter = require('./routes/users')
 require('./db/index');
 
 // env variables
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
 
 app.use(booksrouter);
+app.use(userRouter)
 //base route
 app.get('/', (req, res) => {
     res.send("Hello World");

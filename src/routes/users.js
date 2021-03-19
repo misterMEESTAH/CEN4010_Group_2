@@ -1,9 +1,9 @@
 const express = require('express')
-const router = express.Router()
+const userRouter = express.Router()
 const signUpTemplateCopy = require('../models/user.js')
 const bcrypt = require('bcrypt')
 
-router.post('/signup', async (request, response) =>{
+userRouter.post('/signup', async (request, response) =>{
 
     const saltPassword = await bcrypt.genSalt(10)
     const securePassword = await bcrypt.hash(request.body.password, saltPassword)
@@ -29,4 +29,4 @@ router.post('/signup', async (request, response) =>{
 })
 
 
-module.exports = router
+module.exports = userRouter
