@@ -28,7 +28,8 @@ function Browse() {
   const [booksDefault, setBooksDefault] = React.useState([]);
   const [books, setBooks] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState(' ');
-  const [genres, setGenres] = React.useState([])
+  const [genres, setGenres] = React.useState([]);
+  const [pagination, setPagination] = React.useState(10);
 
   const getBooks = async () => {
     let books = [];
@@ -65,7 +66,7 @@ function Browse() {
       return book['category'] === genre;
     })
     if(filterbygenre.length === 0) {
-      const filterbygenre = booksDefault.filter((book) => {
+      filterbygenre = booksDefault.filter((book) => {
         return book['category'] === genre;
       })
     }
@@ -91,6 +92,9 @@ function Browse() {
     setGenres(categories)
   }
 
+  const changePagination = (_, data) => {
+    setPagination(data.value)
+  }
 
   return (
     <div className="browse">
@@ -101,9 +105,15 @@ function Browse() {
         selection
         options={genres}
       />
+      <Dropdown
+        placeholder='Number of Items per page'
+        onChange={changePagination}
+        selection
+        options={[{key: 10, text: 10, value: 10}, {key: 20, text: 20, value: 20}]}
+      />
       <div className="book-list">
         <button onClick={async () => getBooks()}>Get Books</button>
-        {BookList(books)}
+        {BookList(books.slice(0, pagination))}
       </div>
     </div>
   );
