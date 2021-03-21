@@ -9,7 +9,7 @@ import Home from "./Home";
 import Browse from "./browse";
 import Users from "./Users";
 import WishList from "./WishList";
-import BookDetails from "./bookdetails";
+import BookDetails from "./BookDetails";
 
 function App() {
   return (
