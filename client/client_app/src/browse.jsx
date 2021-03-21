@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './App.css';
 import booksFromDB from "./load_books"
 import { Dropdown } from 'semantic-ui-react'
@@ -30,6 +30,7 @@ function Browse() {
   const [searchQuery, setSearchQuery] = React.useState(' ');
   const [genres, setGenres] = React.useState([]);
   const [pagination, setPagination] = React.useState(10);
+  const [isLoading, setLoading] = React.useState(true)
 
   const getBooks = async () => {
     let books = [];
@@ -48,31 +49,7 @@ function Browse() {
     setBooksDefault(books);
     getGenres(books);
   }
-
-  const search = (query) => {
-    setSearchQuery(query)
-    const filtered = booksDefault.filter((book) => {
-      const bookName = book['title'].toLowerCase();
-      return bookName.includes(query.toLowerCase());
-    })
-    
-    setBooks(filtered);
-    getGenres(filtered);
-  }
-
-  const browseByGenre = (_ , data) => {
-    let genre = data.value
-    const filterbygenre = books.filter((book) => {
-      return book['category'] === genre;
-    })
-    if(filterbygenre.length === 0) {
-      filterbygenre = booksDefault.filter((book) => {
-        return book['category'] === genre;
-      })
-    }
-    setBooks(filterbygenre) 
-  }
-
+  
   const getGenres = (books) => {
     let categories = [];
     let genre = '';
@@ -91,6 +68,54 @@ function Browse() {
     })
     setGenres(categories)
   }
+
+  useEffect(()=>{
+    booksFromDB.then(books => {
+      books.sort((firstbook, secondbook) => {
+        if(firstbook['title'] < secondbook['title']){
+          return -1;
+        }
+        if(firstbook['title'] > secondbook['title']){
+          return 1;
+        }
+
+        return 0;
+    })
+    setLoading(false);
+    setBooks(books);
+    setBooksDefault(books);
+    getGenres(books);
+    });
+  }, [])
+
+  if(isLoading){
+    return <div className="App">Loading..</div>
+  }
+  const search = (query) => {
+    setSearchQuery(query)
+    const filtered = booksDefault.filter((book) => {
+      const bookName = book['title'].toLowerCase();
+      return bookName.includes(query.toLowerCase());
+    })
+    
+    setBooks(filtered);
+    getGenres(filtered);
+  }
+
+  const browseByGenre = (_ , data) => {
+    let genre = data.value
+    let filterbygenre = books.filter((book) => {
+      return book['category'] === genre;
+    })
+    if(filterbygenre.length === 0) {
+      filterbygenre = booksDefault.filter((book) => {
+        return book['category'] === genre;
+      })
+    }
+    setBooks(filterbygenre) 
+  }
+
+  
 
   const changePagination = (_, data) => {
     setPagination(data.value)
