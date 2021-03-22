@@ -1,7 +1,7 @@
 import './App.css';
+import 'semantic-ui-css/semantic.min.css'
 import {
   BrowserRouter as HashRouter,
-  Switch,
   Route,
   NavLink
 } from "react-router-dom";
@@ -9,6 +9,7 @@ import Home from "./Home";
 import Browse from "./browse";
 import Users from "./Users";
 import WishList from "./WishList";
+import './load_books';
 import BookDetails from "./bookdetails";
 
 function App() {
