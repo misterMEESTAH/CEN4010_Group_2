@@ -10,6 +10,8 @@
     "bootstrap": "^4.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-inner-image-zoom": "^2.0.1",
+    "react-medium-image-zoom": "^4.3.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.0"
@@ -37,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-prismazoom": "^2.0.1-rc0"
   }
 }
