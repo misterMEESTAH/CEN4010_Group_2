@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import './App.css';
 import booksFromDB from "./load_books"
