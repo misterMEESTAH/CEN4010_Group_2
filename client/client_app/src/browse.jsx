@@ -35,7 +35,7 @@ function Browse() {
   const getBooks = async () => {
     let books = [];
     books = await booksFromDB;
-    books.sort((firstbook, secondbook) => {
+    books = [...books].sort((firstbook, secondbook) => {
       if(firstbook['title'] < secondbook['title']){
         return -1;
       }
