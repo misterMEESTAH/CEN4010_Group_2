@@ -4,10 +4,13 @@ const bodyParser = require('body-parser');
 const app = express();
 require('dotenv').config();
 const cors = require('cors');
-const booksrouter = require('./routes/books');
+const booksrouter = require('./routes/bookRoutes');
+const commentsRouter = require('./routes/commentsRoutes');
+const { Mongoose } = require('mongoose');
 require('./db/index');
 //JC test
-// env variables
+
+
 const PORT = process.env.PORT || 5000;
 var corsOptions = {
     origin: function (origin, callback) {
@@ -25,7 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
 
+
 app.use(booksrouter);
+app.use(commentsRouter)
 //base route
 app.get('/', (req, res) => {
     res.send("Hello World");

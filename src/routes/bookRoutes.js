@@ -1,7 +1,7 @@
 'use strict'
 
 const Router = require('express').Router;
-const books = require('../models/book');
+const books = require('../models/bookModel');
 
 const router = Router();
 
