@@ -31,6 +31,7 @@ app.use(cors())
 
 app.use(booksrouter);
 app.use(commentsRouter)
+app.use(userRouter)
 //base route
 app.get('/', (req, res) => {
     res.send("Hello World");
