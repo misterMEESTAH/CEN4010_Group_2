@@ -17,6 +17,9 @@ function BookItem(book) {
 }
 
 function BookList(books) {
+  if(!Array.isArray(books)){
+    books = []
+  }
   return (
     <div className="bookList" data-columns="2">
         <ul>{books.map((book) => BookItem(book))}</ul>
@@ -31,6 +34,9 @@ function Browse() {
   const [genres, setGenres] = React.useState([]);
   const [pagination, setPagination] = React.useState(10);
   const [isLoading, setLoading] = React.useState(true)
+  const [pageNumber, setPageNumber] = React.useState(1);
+  const [hideNext, setHideNext] = React.useState(false);
+  const [hidePrev, setHidePrev] = React.useState(true);
 
   const getBooks = async () => {
     let books = [];
@@ -59,6 +65,7 @@ function Browse() {
             categories.push(genre);
         }
     }
+    categories.push('All');
     categories = categories.map((genre) => {
        return {
          key: genre,
@@ -81,10 +88,10 @@ function Browse() {
 
         return 0;
     })
-    setLoading(false);
     setBooks(books);
     setBooksDefault(books);
     getGenres(books);
+    setLoading(false);
     });
   }, [])
 
@@ -97,13 +104,16 @@ function Browse() {
       const bookName = book['title'].toLowerCase();
       return bookName.includes(query.toLowerCase());
     })
-    
     setBooks(filtered);
     getGenres(filtered);
   }
 
   const browseByGenre = (_ , data) => {
     let genre = data.value
+    if (genre === 'All') {
+      setBooks(booksDefault)
+      return;
+    }
     let filterbygenre = books.filter((book) => {
       return book['category'] === genre;
     })
@@ -115,10 +125,74 @@ function Browse() {
     setBooks(filterbygenre) 
   }
 
+  const nextPage = () => {
+    setPageNumber(pageNumber + 1)
+    console.log(books)
+  }
+
+  const prevPage = () => {
+    setPageNumber(pageNumber - 1)
+    console.log(books)
+  }
   
 
   const changePagination = (_, data) => {
     setPagination(data.value)
+  }
+
+  const changeRating = (_, data) => {
+    let rating = data.value
+    let filterbyrating = books.filter((book) => {
+      return Math.floor(book['rating']) >= rating;
+    })
+    if(filterbyrating.length === 0) {
+      filterbyrating = booksDefault.filter((book) => {
+        return Math.floor(book['rating']) >= rating;
+      })
+    }
+    changePage();
+    setBooks(filterbyrating);
+  }
+
+  const changePage = () => {
+    console.log(books)
+    const pages = books.map((e, i) => { 
+      return i % pagination === 0 ? books.slice(i, i + pagination) : null; 
+    }).filter(e => { return e; });
+    
+    if(pageNumber + 1 > pages.length && !hideNext){
+      setHideNext(true)
+    } else if(pageNumber + 1 <= pages.length && hideNext){
+      setHideNext(false)
+    }
+
+    if(pageNumber - 1 < 0 && !hidePrev){
+      setHidePrev(true)
+    } else if(pageNumber - 1 > 0 && hidePrev){
+      setHidePrev(false)
+    }
+    if(pageNumber - 1 >= pages.length){
+      setPageNumber(1)
+    }
+    console.log(pages)
+    return pages[pageNumber - 1]
+  }
+
+  const changeSortBy = (_, data) => {
+    const sortBy = data.value
+    console.log(sortBy)
+    const sortByBooks = books.sort((firstbook, secondbook) => {
+      if(firstbook[sortBy] < secondbook[sortBy]){
+        return -1;
+      }
+      if(firstbook[sortBy] > secondbook[sortBy]){
+        return 1;
+      }
+      return 0;
+    })
+    console.log(sortByBooks)
+    setBooks(sortByBooks)
+    getGenres(sortByBooks)
   }
 
   return (
@@ -136,10 +210,35 @@ function Browse() {
         selection
         options={[{key: 10, text: 10, value: 10}, {key: 20, text: 20, value: 20}]}
       />
+      <Dropdown
+        placeholder='Rating'
+        onChange={changeRating}
+        selection
+        options={[{key: 1, text: 1, value: 1}, 
+          {key: 2, text: 2, value: 2}, 
+          {key: 3, text: 3, value: 3}, 
+          {key: 4, text: 4, value: 4}, 
+          {key: 5, text: 5, value: 5}]}
+      />
+      <Dropdown
+        placeholder='Sort By...'
+        onChange={changeSortBy}
+        selection
+        options={[{key: 'Title', text: 'Title', value: 'title'}, 
+        {key: 'Author', text: 'Author', value: 'author'}, 
+        {key: 'Price', text: 'Price', value: 'price'}, 
+        {key: 'Rating', text: 'Rating', value: 'rating'}, 
+        {key: 'Date', text: 'Date', value: 'date'}]}
+      />
       <div className="book-list">
         <button onClick={async () => getBooks()}>Get Books</button>
-        {BookList(books.slice(0, pagination))}
+        {BookList(changePage())}
+        {!hidePrev && <button onClick={() => prevPage()}>Prev</button>}
+        <p>Page: {pageNumber}</p>
+        {!hideNext && <button onClick={() => nextPage()}>Next</button>}
+        
       </div>
+
     </div>
   );
 }
