@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import './App.css';
 import booksFromDB from "./load_books"
 import { Dropdown } from 'semantic-ui-react'
+import AddToCart from "./AddToCart"
 
 
 function BookItem(book) {
@@ -12,6 +13,7 @@ function BookItem(book) {
       <h2>Author: {book['author']}</h2>
       <h3>Rating: {book['rating']}</h3>
       <h4>Price: {book['price']}</h4>
+      <AddToCart book={book}></AddToCart>
     </li>
   )
 }
