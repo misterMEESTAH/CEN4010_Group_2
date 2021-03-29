@@ -11,7 +11,11 @@ const getBooksFromDB = async () => {
       console.log(error);
     })
     console.log(booksapi);
-    return booksapi['allBooks'];
+    const books = booksapi['allBooks'].map((book) => {
+      book['quantity'] = 0;
+      return book
+    })
+    return books;
 };
 
 const booksFromDB = getBooksFromDB();

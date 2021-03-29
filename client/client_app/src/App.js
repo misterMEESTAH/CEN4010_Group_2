@@ -11,6 +11,7 @@ import Users from "./Users";
 import WishList from "./WishList";
 import './load_books';
 import BookDetails from "./bookdetails";
+import Cart from "./Cart"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                     <li><NavLink to = "/Users">Users</NavLink></li>
                     <li><NavLink to = "/WishList">WishList</NavLink></li>
                     <li><NavLink to = "/BookDetails">BookDetails</NavLink></li>
+                    <li><NavLink to = "/Cart">Cart</NavLink></li>
                 </ul>
                 <div className = "content">
                   <Route exact path="/" component={Home}/>
@@ -30,6 +32,7 @@ function App() {
                   <Route path="/Users" component={Users}/>
                   <Route path="/WishList" component={WishList}/>
                   <Route path="/BookDetails" component={BookDetails}/>
+                  <Route path="/Cart" component={Cart}/>
                 </div>
                 </div>
         </HashRouter>  
