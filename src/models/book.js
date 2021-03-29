@@ -8,7 +8,8 @@ const bookSchema = new mongoose.Schema({
     price: {type: String, required: true},
     category: {type: String, required: true},
     format: {type: String, required: true},
-    rating: {type: String, required: true}
+    rating: {type: String, required: true},
+    description: {type: String}
 });
 
 //TODO: Add Synopsis for each book
