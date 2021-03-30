@@ -18,13 +18,13 @@ function BookItem(book) {
   )
 }
 
-function BookList(books) {
+function BookList(books, bookLayout) {
   if(!Array.isArray(books)){
     books = []
   }
   return (
     <div className="bookList" data-columns="2">
-        <ul>{books.map((book) => BookItem(book))}</ul>
+        <ul>{books.map((book) => bookLayout(book))}</ul>
     </div>
   )
 }
@@ -234,7 +234,7 @@ function Browse() {
       />
       <div className="book-list">
         <button onClick={async () => getBooks()}>Get Books</button>
-        {BookList(changePage())}
+        {BookList(changePage(), BookItem)}
         {!hidePrev && <button onClick={() => prevPage()}>Prev</button>}
         <p>Page: {pageNumber}</p>
         {!hideNext && <button onClick={() => nextPage()}>Next</button>}

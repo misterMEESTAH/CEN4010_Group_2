@@ -43,15 +43,22 @@ function Cart () {
     const getQuantities = () => {
         let books = [...cart];
         let count = 1;
+        console.log(books)
         for(let i = 0; i < books.length;i++){
             console.log(books[i])
             for(let j = 0; j < books.length; j++){
-                if(books[i]['_id'] === books[j]['_id']){
-                    books.splice(j, 1)
-                    count++;
+                if (i !== j){
+                    if(books[i]['_id'] === books[j]['_id']){
+                        books.splice(j, 1);
+                        count++;
+                        j--;
+                    }
                 }
+                
+                console.log(books)
             }
             books[i]['quantity'] = count;
+            console.log(books[i])
             count = 1;
         }
         return books
