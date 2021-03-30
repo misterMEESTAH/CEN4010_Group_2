@@ -8,6 +8,7 @@ import {
 import Home from "./Home";
 import Browse from "./browse";
 import Users from "./Users";
+import SignIn from "./SignIn";
 import WishList from "./WishList";
 import './load_books';
 import BookDetails from "./bookdetails";
@@ -20,7 +21,8 @@ function App() {
                 <ul className="header">
                     <li><NavLink exact to = "/">Home</NavLink></li>
                     <li><NavLink to = "/Browse">Browse</NavLink></li>
-                    <li><NavLink to = "/Users">Users</NavLink></li>
+                    <li><NavLink to = "/Users">Sign Up</NavLink></li>
+                    <li><NavLink to = "/SignIn">Sign In</NavLink></li>
                     <li><NavLink to = "/WishList">WishList</NavLink></li>
                     <li><NavLink to = "/BookDetails">BookDetails</NavLink></li>
                 </ul>
@@ -28,6 +30,7 @@ function App() {
                   <Route exact path="/" component={Home}/>
                   <Route path="/Browse" component={Browse}/>
                   <Route path="/Users" component={Users}/>
+                  <Route path="/SignIn" component={SignIn}/>
                   <Route path="/WishList" component={WishList}/>
                   <Route path="/BookDetails" component={BookDetails}/>
                 </div>
