@@ -3,6 +3,7 @@ import './App.css';
 import booksFromDB from "./load_books"
 import { Dropdown } from 'semantic-ui-react'
 import AddToCart from "./AddToCart"
+import BookList from "./bookList"
 
 
 function BookItem(book) {
@@ -15,17 +16,6 @@ function BookItem(book) {
       <h4>Price: {book['price']}</h4>
       <AddToCart book={book}></AddToCart>
     </li>
-  )
-}
-
-function BookList(books, bookLayout) {
-  if(!Array.isArray(books)){
-    books = []
-  }
-  return (
-    <div className="bookList" data-columns="2">
-        <ul>{books.map((book) => bookLayout(book))}</ul>
-    </div>
   )
 }
 
@@ -238,7 +228,6 @@ function Browse() {
         {!hidePrev && <button onClick={() => prevPage()}>Prev</button>}
         <p>Page: {pageNumber}</p>
         {!hideNext && <button onClick={() => nextPage()}>Next</button>}
-        
       </div>
 
     </div>

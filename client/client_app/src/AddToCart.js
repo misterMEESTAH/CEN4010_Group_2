@@ -9,7 +9,18 @@ function AddToCart (book) {
         
         let cart = JSON.parse(localStorage.getItem('cart'));
         
-        cart.push(book)
+        let inCart = false;
+        for(let i = 0; i < cart.length; i++){
+            
+            if(cart[i]['book']['title'] === book['book']['title']){
+                cart[i]['book']['quantity'] = cart[i]['book']['quantity'] + 1;
+                console.log(cart[i]['book'])
+                inCart = true;
+            }
+        }
+        if(!inCart){
+            cart.push(book)
+        }
         localStorage.setItem('cart', JSON.stringify(cart))
     }
     return(

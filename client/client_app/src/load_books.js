@@ -12,7 +12,7 @@ const getBooksFromDB = async () => {
     })
     console.log(booksapi);
     const books = booksapi['allBooks'].map((book) => {
-      book['quantity'] = 0;
+      book['quantity'] = 1;
       return book
     })
     return books;
