@@ -17,7 +17,10 @@ userRouter.post('/signup', async (request, response) =>{
         address:request.body.address,
         nickname:request.body.nickname,
         creditcard:request.body.creditcard,
-        shippingaddress:request.body.shippingaddress
+        shippingaddress:request.body.shippingaddress,
+        cart: [],
+        wishlist: [],
+        bought: []
     })
     signedUpUser.save()
     .then(data =>{
@@ -28,5 +31,23 @@ userRouter.post('/signup', async (request, response) =>{
     })
 })
 
+userRouter.post('/login', async (req, res) => {
+    try {
+        const email = req.body.email
+        const user = await signUpTemplateCopy.findOne({email: email})
+        const match = await bcrypt.compare(user['securedPassword']);
+
+        if(match) {
+            res.status(200).send({success: true, user});
+        }
+        else {
+            console.log("Password doesn't match");
+            res.status(400).send({success: false, error: "Password doesn't Match"});
+        }
+    } catch(e) {
+        console.log(e);
+        res.status(e).send({success: false, error: e});
+    }
+})
 
 module.exports = userRouter
