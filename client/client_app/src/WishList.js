@@ -4,7 +4,7 @@ import './App.css';
 import CatalogProducts      from './components/CatalogProducts/CatalogProducts.jsx';
 import CatalogFiltering     from './components/CatalogFiltering/CatalogFiltering.jsx';
 import PaginationToolbar    from './components/PaginationToolbar/PaginationToolbar.jsx';
-import Wishlist             from './components/Wishlist/Wishlist.jsx';
+import Wishlist             from './components/WishList/WishList.jsx';
 import booksFromDB          from './load_books'
 
 class App extends Component {
