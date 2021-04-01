@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   showProductList = () => {
-    fetch('http://127.0.0.1:8000/api/showproductlist/')
+    fetch('https://cen4010-group2.herokuapp.com/book/getAll')
       .then(
         (response) => {
           return response.json()
@@ -39,7 +39,7 @@ class App extends Component {
   showWishList = () => {
 
  
-    fetch('http://127.0.0.1:8000/api/showwishlist/')
+    fetch('https://cen4010-group2.herokuapp.com/book/getWishList')
     
       .then(
         (response) => {
@@ -56,7 +56,7 @@ class App extends Component {
   }
 
   wishNumberHandler = (event) => {
-    fetch('http://127.0.0.1:8000/api/showwishlist/' + event.target.value)
+    fetch('https://cen4010-group2.herokuapp.com/book/getWishList' + event.target.value)
     
     .then(
       (response) => {
@@ -80,7 +80,7 @@ class App extends Component {
       return wish.stock_number === stock_number;
     });
     if (checkWishItem === -1) {
-      const url = 'http://127.0.0.1:8000/api/wishlist/';
+      const url = 'https://cen4010-group2.herokuapp.com/book/wishlist/';
       fetch(url, {
           headers: {
             'Accept': 'application/json',
@@ -111,7 +111,7 @@ class App extends Component {
   deleteFromWishList = (pk, e) => {
     e.preventDefault();
     //Delete form database
-    const url = 'http://127.0.0.1:8000/api/wishlist/' + pk + '/';
+    const url = 'https://cen4010-group2.herokuapp.com/book/wishlist/' + pk + '/';
     fetch(url, {
       headers: {
         'Accept': 'application/json',
