@@ -1,7 +1,7 @@
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import {
-  BrowserRouter as HashRouter,
+  BrowserRouter,
   Route,
   NavLink
 } from "react-router-dom";
@@ -12,10 +12,12 @@ import WishList from "./WishList";
 import './load_books';
 import BookDetails from "./bookdetails";
 import Cart from "./Cart"
+import React, { useEffect } from "react";
+import SignIn from './SignIn';
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
             <div>
                 <h1>Book Barn</h1>
                 <ul className="header">
@@ -25,6 +27,7 @@ function App() {
                     <li><NavLink to = "/WishList">WishList</NavLink></li>
                     <li><NavLink to = "/BookDetails">BookDetails</NavLink></li>
                     <li><NavLink to = "/Cart">Cart</NavLink></li>
+                    <li><NavLink to = "/SignIn">Sign In</NavLink></li>
                 </ul>
                 <div className = "content">
                   <Route exact path="/" component={Home}/>
@@ -33,9 +36,10 @@ function App() {
                   <Route path="/WishList" component={WishList}/>
                   <Route path="/BookDetails" component={BookDetails}/>
                   <Route path="/Cart" component={Cart}/>
+                  <Route path="/SignIn" component={SignIn}/>
                 </div>
                 </div>
-        </HashRouter>  
+        </BrowserRouter>  
 
   );
 }

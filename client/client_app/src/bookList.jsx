@@ -1,5 +1,3 @@
-
-
 function BookList(books, bookLayout) {
     if(!Array.isArray(books)){
       books = []
