@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/misterMEESTAH/CEN4010_Group_2#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
@@ -24,6 +25,8 @@
     "express": "^4.17.1",
     "http-errors": "^1.8.0",
     "mongoose": "5.11.15",
+    "react": "^17.0.1",
+    "react-router": "^5.2.0",
     "superagent": "^6.1.0"
   }
 }
