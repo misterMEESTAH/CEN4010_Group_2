@@ -5,7 +5,6 @@ import { Dropdown } from 'semantic-ui-react'
 import AddToCart from "./AddToCart"
 import BookList from "./bookList"
 import AddToWishlist from "./AddToWishlist"
-import { set } from "mongoose";
 
 
 function BookItem(book) {
@@ -16,6 +15,7 @@ function BookItem(book) {
       <h2>Author: {book['author']}</h2>
       <h3>Rating: {book['rating']}</h3>
       <h4>Price: {book['price']}</h4>
+      <h5>Publishing Data: {new Date(book['date']).toLocaleDateString()}</h5>
       <AddToCart book={book}></AddToCart>
       <AddToWishlist book={book}></AddToWishlist>
     </li>
@@ -33,7 +33,6 @@ function Browse() {
   const [hideNext, setHideNext] = React.useState(false);
   const [hidePrev, setHidePrev] = React.useState(true);
   const [direction, setDirection] = React.useState("Ascending");
-  const [sortBy, setSortBy] = React.useState("Title")
 
   const getBooks = async () => {
     let books = [];
@@ -177,17 +176,33 @@ function Browse() {
   }
 
   const changeSortBy = (value) => {
-    setSortBy(value)
-    console.log(sortBy)
-    const sortByBooks = books.sort((firstbook, secondbook) => {
-      if(firstbook[sortBy] < secondbook[sortBy]){
-        return -1;
-      }
-      if(firstbook[sortBy] > secondbook[sortBy]){
-        return 1;
-      }
-      return 0;
-    })
+    const sortBy = value;
+    let sortByBooks = []
+    if(sortBy === "date"){
+      sortByBooks = books.sort((firstbook, secondbook) => {
+        const firstbookDate = new Date(firstbook[value])
+        const secondbookDate = new Date(secondbook[value])
+        if(firstbookDate < secondbookDate){
+          return -1;
+        }
+        if(firstbookDate > secondbookDate){
+          return 1;
+        }
+        return 0;
+      })
+    }
+    else {
+      sortByBooks = books.sort((firstbook, secondbook) => {
+        if(firstbook[sortBy] < secondbook[sortBy]){
+          return -1;
+        }
+        if(firstbook[sortBy] > secondbook[sortBy]){
+          return 1;
+        }
+        return 0;
+      })
+    }
+
     if(direction === "Descending"){
       console.log(sortByBooks)
       sortByBooks.reverse(sortByBooks);
