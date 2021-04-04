@@ -5,6 +5,7 @@ import { Dropdown } from 'semantic-ui-react'
 import AddToCart from "./AddToCart"
 import BookList from "./bookList"
 import AddToWishlist from "./AddToWishlist"
+import { set } from "mongoose";
 
 
 function BookItem(book) {
@@ -31,6 +32,8 @@ function Browse() {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [hideNext, setHideNext] = React.useState(false);
   const [hidePrev, setHidePrev] = React.useState(true);
+  const [direction, setDirection] = React.useState("Ascending");
+  const [sortBy, setSortBy] = React.useState("Title")
 
   const getBooks = async () => {
     let books = [];
@@ -150,6 +153,7 @@ function Browse() {
 
   const changePage = () => {
     console.log(books)
+    
     const pages = books.map((e, i) => { 
       return i % pagination === 0 ? books.slice(i, i + pagination) : null; 
     }).filter(e => { return e; });
@@ -172,8 +176,8 @@ function Browse() {
     return pages[pageNumber - 1]
   }
 
-  const changeSortBy = (_, data) => {
-    const sortBy = data.value
+  const changeSortBy = (value) => {
+    setSortBy(value)
     console.log(sortBy)
     const sortByBooks = books.sort((firstbook, secondbook) => {
       if(firstbook[sortBy] < secondbook[sortBy]){
@@ -184,9 +188,22 @@ function Browse() {
       }
       return 0;
     })
-    console.log(sortByBooks)
+    if(direction === "Descending"){
+      console.log(sortByBooks)
+      sortByBooks.reverse(sortByBooks);
+      console.log(sortByBooks);
+    }
     setBooks(sortByBooks)
     getGenres(sortByBooks)
+  }
+
+  const changeSortDirection = () => {
+    if(direction === "Ascending"){
+      setDirection("Descending")
+    } else {
+      setDirection("Ascending")
+    }
+    setBooks(books.reverse());
   }
 
   return (
@@ -216,7 +233,7 @@ function Browse() {
       />
       <Dropdown
         placeholder='Sort By...'
-        onChange={changeSortBy}
+        onChange={(_, data) => changeSortBy(data.value)}
         selection
         options={[{key: 'Title', text: 'Title', value: 'title'}, 
         {key: 'Author', text: 'Author', value: 'author'}, 
@@ -224,6 +241,7 @@ function Browse() {
         {key: 'Rating', text: 'Rating', value: 'rating'}, 
         {key: 'Date', text: 'Date', value: 'date'}]}
       />
+      <button onClick={changeSortDirection}>{direction}</button>
       <div className="book-list">
         <button onClick={async () => getBooks()}>Get Books</button>
         {BookList(changePage(), BookItem)}
