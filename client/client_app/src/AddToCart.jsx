@@ -5,7 +5,7 @@ import updateUser from './updateUser'
 function AddToCart (book) {
     const addBook = async () => {
         if(localStorage.getItem('user') === null || !localStorage.getItem('user')){
-            localStorage.setItem('user', JSON.stringify([]))
+            localStorage.setItem('user', JSON.stringify({}))
         }
         let user = JSON.parse(localStorage.getItem('user'));
         if (!user['cart']) {

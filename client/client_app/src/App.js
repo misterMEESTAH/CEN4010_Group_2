@@ -12,7 +12,7 @@ import WishList from "./WishList";
 import './load_books';
 import BookDetails from "./bookdetails";
 import Cart from "./Cart"
-import React, { useEffect } from "react";
+import React from "react";
 import SignIn from './SignIn';
 
 function App() {
