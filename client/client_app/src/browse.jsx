@@ -4,6 +4,7 @@ import booksFromDB from "./load_books"
 import { Dropdown } from 'semantic-ui-react'
 import AddToCart from "./AddToCart"
 import BookList from "./bookList"
+import AddToWishlist from "./AddToWishlist"
 
 
 function BookItem(book) {
@@ -15,6 +16,7 @@ function BookItem(book) {
       <h3>Rating: {book['rating']}</h3>
       <h4>Price: {book['price']}</h4>
       <AddToCart book={book}></AddToCart>
+      <AddToWishlist book={book}></AddToWishlist>
     </li>
   )
 }
