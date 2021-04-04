@@ -3,6 +3,11 @@ import './App.css';
 import BookList from "./bookList";
 
 
+function deleteItem() {
+    localStorage.getItem('cart').removeItem("book");
+  };
+
+
 function BookItem(book) {
     return (
       <li key={book['title']}>
@@ -12,6 +17,8 @@ function BookItem(book) {
         <h3>Rating: {book['rating']}</h3>
         <h4>Price: {book['price']}</h4>
         <h5>Quantity: {book['quantity']}</h5>
+        {/* <deleteItem book={book}></deleteItem> */}
+        {/* <button className="removeItemBtns" onClick={() => deleteItem(book)}>Remove</button> */}
       </li>
     )
   }
@@ -27,11 +34,13 @@ function Cart () {
         setCart(JSON.parse(localStorage.getItem('cart')).map((book) => {
             return book['book']
         }));
-    }, [])
-    
+    }, []);
+
+
     return(
         <div>
             {BookList(cart, BookItem)}
+            
         </div>
     )
 }
