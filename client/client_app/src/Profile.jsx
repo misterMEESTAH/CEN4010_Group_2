@@ -81,17 +81,15 @@ class Profile extends Component {
         nickname: this.state.nickname,
         creditcard: this.state.creditcard,
         shippingaddress: this.state.shippingaddress,
-        _id: this.state._id
     }
 
     //sending updated data
     axios.put('http://localhost:5000/update', updated)
         .then(loginuser => {
-            console.log(loginuser['data']['user'])
-            localStorage.setItem('user', JSON.stringify(loginuser['data']['user']))
+            console.log(loginuser['data']['updateUser'])
+            localStorage.setItem('user', JSON.stringify(loginuser['data']['updateUser']))
           })
 }
-
 
 
 render() {
@@ -115,14 +113,6 @@ render() {
                       value={this.state.fullName}
                       className='form-control form-group'
                       />                            
-
-                      <h> Email </h>
-                      <input type = 'text'
-                      placeholder='Email'
-                      onChange={this.changeEmail}
-                      value={this.state.email}
-                      className='form-control form-group'
-                      />
 
                       <h> Home Address </h>
                       <input type = 'text'

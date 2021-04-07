@@ -54,23 +54,32 @@ userRouter.post('/login', async (req, res) => {
 
 userRouter.put('/update', async (req, res) => {
     try {
-        const updateUser = await signUpTemplateCopy.findOneAndUpdate({
-            "_id":req.body._id}, 
-            { "$set": { 
-                "username": req.body.username, 
-                "fullName": req.body.fullName, 
-                "email": req.body.email, 
-                "address": req.body.address,
-                "nickname": req.body.nickname,
-                "creditcard": req.body.creditcard,
-                "shippingaddress": req.body.shippingaddress
-            }}).exec();
-        updateUser['password'] = undefined;
-        res.status(200).send({success: true, updateUser});
-    } catch(e) {
-        console.log(e);
-        res.status(e).send({success: false, error: e});
+
+    const {fullName, username, email, address, nickname, creditcard, shippingaddress, cart, wishlist, bought} = req.body;
+    //console.log(fullName)
+    //console.log(cart)
+
+    const fields = {
+        fullName,
+        username,
+        email,
+        address,
+        nickname,
+        creditcard,
+        address,
+        shippingaddress,
+        cart,
+        wishlist,
+        bought
     }
+    const updateUser = await signUpTemplateCopy.findOneAndUpdate({email: email}, fields, {new: true}).exec();
+    console.log(updateUser)
+    updateUser['password'] = undefined;
+    res.status(200).send({success: true, updateUser});
+} catch(e) {
+    console.log(e);
+    res.status(e).send({success: false, error: e});
+}
     
 })
 
