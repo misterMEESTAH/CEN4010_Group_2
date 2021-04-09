@@ -264,7 +264,6 @@ function Browse() {
         <p>Page: {pageNumber}</p>
         {!hideNext && <button onClick={() => nextPage()}>Next</button>}
       </div>
-
     </div>
   );
 }
