@@ -32,7 +32,7 @@ function AddToCart (book) {
     }
     return(
     <div>
-        <button className="addToCartBtn" onClick={() => addBook(book)}>Add To Cart</button>
+        <button className="waves-effect waves-light btn" onClick={() => addBook(book)}>Add To Cart</button>
     </div>
     );
 }

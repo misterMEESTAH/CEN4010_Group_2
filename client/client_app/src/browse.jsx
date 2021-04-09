@@ -256,13 +256,13 @@ function Browse() {
         {key: 'Rating', text: 'Rating', value: 'rating'}, 
         {key: 'Date', text: 'Date', value: 'date'}]}
       />
-      <button onClick={changeSortDirection}>{direction}</button>
+      <button className= "waves-effect waves-light btn" onClick={changeSortDirection}>{direction}</button>
       <div className="book-list">
-        <button onClick={async () => getBooks()}>Get Books</button>
+        <button className= "waves-effect waves-light btn" onClick={async () => getBooks()}>Get Books</button>
         {BookList(changePage(), BookItem)}
-        {!hidePrev && <button onClick={() => prevPage()}>Prev</button>}
+        {!hidePrev && <button className= "waves-effect waves-light btn" onClick={() => prevPage()}>Prev</button>}
         <p>Page: {pageNumber}</p>
-        {!hideNext && <button onClick={() => nextPage()}>Next</button>}
+        {!hideNext && <button className= "waves-effect waves-light btn" onClick={() => nextPage()}>Next</button>}
       </div>
     </div>
   );
