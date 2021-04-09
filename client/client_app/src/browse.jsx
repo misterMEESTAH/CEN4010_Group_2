@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import './App.css';
 import booksFromDB from "./load_books"
 import { Dropdown } from 'semantic-ui-react'
-import AddToCart from "./AddToCart"
-import BookList from "./bookList"
-import AddToWishlist from "./AddToWishlist"
 
 
 function BookItem(book) {
@@ -15,9 +12,16 @@ function BookItem(book) {
       <h2>Author: {book['author']}</h2>
       <h3>Rating: {book['rating']}</h3>
       <h4>Price: {book['price']}</h4>
-      <AddToCart book={book}></AddToCart>
-      <AddToWishlist book={book}></AddToWishlist>
     </li>
+  )
+}
+
+
+function BookList(books) {
+  return (
+    <div className="bookList" data-columns="2">
+        <ul>{books.map((book) => BookItem(book))}</ul>
+    </div>
   )
 }
 
@@ -31,6 +35,7 @@ function Browse() {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [hideNext, setHideNext] = React.useState(false);
   const [hidePrev, setHidePrev] = React.useState(true);
+
 
   const getBooks = async () => {
     let books = [];
@@ -60,6 +65,7 @@ function Browse() {
         }
     }
     categories.push('All');
+
     categories = categories.map((genre) => {
        return {
          key: genre,
@@ -86,6 +92,7 @@ function Browse() {
     setBooksDefault(books);
     getGenres(books);
     setLoading(false);
+
     });
   }, [])
 
@@ -108,6 +115,7 @@ function Browse() {
       setBooks(booksDefault)
       return;
     }
+
     let filterbygenre = books.filter((book) => {
       return book['category'] === genre;
     })
@@ -118,6 +126,7 @@ function Browse() {
     }
     setBooks(filterbygenre) 
   }
+
 
   const nextPage = () => {
     setPageNumber(pageNumber + 1)
@@ -231,7 +240,10 @@ function Browse() {
         <p>Page: {pageNumber}</p>
         {!hideNext && <button onClick={() => nextPage()}>Next</button>}
       </div>
-
+      <div className="book-list">
+        <button onClick={async () => getBooks()}>Get Books</button>
+        {BookList(books.slice(0, pagination))}
+      </div>
     </div>
   );
 }
