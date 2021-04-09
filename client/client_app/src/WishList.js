@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeItem,addQuantity,subtractQuantity} from './components/actions/cartActions'
 import Formula from './components/Formula'
+import AddToCart from './AddToCart'
 
 class WishList extends Component{
 
@@ -43,6 +44,7 @@ class WishList extends Component{
                                             <Link to="/WishList"><i className="material-icons" onClick={()=>{this.subtractQuantity(item.book._id)}}>arrow_drop_down</i></Link>
                                         </div>
                                         <button className="waves-effect waves-light btn pink remove" onClick={()=>{this.remove(item.book)}}>Remove</button>
+                                        <AddToCart book={item.book}></AddToCart>
                                     </div>
                                     
                                 </li>
@@ -61,8 +63,7 @@ class WishList extends Component{
                     <ul className="collection">
                         {addedItems}
                     </ul>
-                </div> 
-                <Formula />          
+                </div>         
             </div>
        )
     }
