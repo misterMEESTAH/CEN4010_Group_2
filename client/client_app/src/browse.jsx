@@ -240,10 +240,6 @@ function Browse() {
         <p>Page: {pageNumber}</p>
         {!hideNext && <button onClick={() => nextPage()}>Next</button>}
       </div>
-      <div className="book-list">
-        <button onClick={async () => getBooks()}>Get Books</button>
-        {BookList(books.slice(0, pagination))}
-      </div>
     </div>
   );
 }
