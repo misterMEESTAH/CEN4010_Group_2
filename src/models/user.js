@@ -9,6 +9,9 @@ const signUpTemplate = new mongoose.Schema({
     nickname:{type:String, required:true},
     creditcard:{type:String, required:true},
     shippingaddress:{type:String, required:true},
+    cart:{type:[{}], required: true},
+    wishlist:{type:[{}], required: true},
+    bought:{type:[{}], required: true},
     date:{type:Date, default:Date.now}
 })
 
