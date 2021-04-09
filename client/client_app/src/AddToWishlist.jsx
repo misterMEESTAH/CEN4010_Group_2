@@ -1,41 +1,24 @@
 import React from "react";
 import './App.css';
 import updateUser from './updateUser'
+import {addToWishList} from './components/actions/cartActions'
+import { useDispatch } from 'react-redux'
+
 
 function AddToWishlist (book) {
-    const addBook = async () => {
-        if(localStorage.getItem('user') === null && !localStorage.getItem('user')){
-            localStorage.setItem('user', JSON.stringify({}))
-        }
-        
-        let user = JSON.parse(localStorage.getItem('user'));
-        if (!user['wishlist']) {
-            user['wishlist'] = []
-        }
-        let inWishlist = false;
-        let wishlist = user['wishlist']
-        for(let i = 0; i < user['wishlist'].length; i++){
-            
-            if(wishlist[i]['book']['title'] === book['book']['title']){
-                wishlist[i]['book']['quantity'] = wishlist[i]['book']['quantity'] + 1;
-                console.log(wishlist[i]['book'])
-                inWishlist = true;
-            }
-        }
-        if(!inWishlist){
-            wishlist.push(book)
-        }
-        user['wishlist'] = wishlist
-        if(user['email']) {
-            user = await updateUser(user);
-        }
-        localStorage.setItem('user', JSON.stringify(user))
+
+    const dispatch = useDispatch()
+
+    const addBook = () => {
+        dispatch(addToWishList(book))
     }
     return(
     <div>
-        <button className="addToWishlistBtn" onClick={() => addBook(book)}>Add To Wishlist</button>
+        <button className="waves-effect waves-light btn" onClick={addBook}>Add To Wishlist</button>
     </div>
     );
 }
 
-export default AddToWishlist;
+
+
+export default (AddToWishlist);
