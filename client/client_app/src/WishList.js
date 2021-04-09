@@ -7,16 +7,16 @@ import Formula from './components/Formula'
 class WishList extends Component{
 
     //to remove the item completely
-    remove = (id)=>{
-        this.props.removeItem(id);
+    remove = (book)=>{
+        this.props.removeItem(book);
     }
     //to add to the item quantity
-    addQuantity = (id)=>{
-        this.props.addQuantity(id);
+    addQuantity = (book)=>{
+        this.props.addQuantity(book);
     }
     //to substruct from the item quantity
-    subtractQuantity = (id)=>{
-        this.props.subtractQuantity(id);
+    subtractQuantity = (book)=>{
+        this.props.subtractQuantity(book);
     }
     render(){
       console.log("props")
@@ -26,23 +26,23 @@ class WishList extends Component{
                 this.props.items.map(item=>{
                     return(
                        
-                        <li className="collection-item avatar" key={item.id}>
+                        <li className="collection-item avatar" key={item.book._id}>
                                     <div className="item-img"> 
-                                        <img src={item.img} alt={item.img} className=""/>
+                                        <img src={item.book.image} alt={item.book.image} className=""/>
                                     </div>
                                 
                                     <div className="item-desc">
-                                        <span className="title">{item.title}</span>
-                                        <p>{item.desc}</p>
-                                        <p><b>Price: ${item.price}</b></p> 
+                                        <span className="title">{item.book.title}</span>
+                                        <p>{item.book.desc}</p>
+                                        <p><b>Price: ${item.book.price}</b></p> 
                                         <p>
-                                            <b>Quantity: {item.quantity}</b> 
+                                            <b>Quantity: {item.book.quantity}</b> 
                                         </p>
                                         <div className="add-remove">
-                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.addQuantity(item.id)}}>arrow_drop_up</i></Link>
-                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.subtractQuantity(item.id)}}>arrow_drop_down</i></Link>
+                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.addQuantity(item.book._id)}}>arrow_drop_up</i></Link>
+                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.subtractQuantity(item.book._id)}}>arrow_drop_down</i></Link>
                                         </div>
-                                        <button className="waves-effect waves-light btn pink remove" onClick={()=>{this.remove(item.id)}}>Remove</button>
+                                        <button className="waves-effect waves-light btn pink remove" onClick={()=>{this.remove(item.book)}}>Remove</button>
                                     </div>
                                     
                                 </li>
@@ -70,8 +70,6 @@ class WishList extends Component{
 
 
 const mapStateToProps = (state)=>{
-    console.log("stateToProps")
-    console.log(state)
     return{
         items: state.items,
         //addedItems: state.addedItems
@@ -79,9 +77,9 @@ const mapStateToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
-        removeItem: (id)=>{dispatch(removeItem(id))},
-        addQuantity: (id)=>{dispatch(addQuantity(id))},
-        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))}
+        removeItem: (book)=>{dispatch(removeItem(book))},
+        addQuantity: (book)=>{dispatch(addQuantity(book))},
+        subtractQuantity: (book)=>{dispatch(subtractQuantity(book))}
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(WishList)
