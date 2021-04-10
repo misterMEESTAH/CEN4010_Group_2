@@ -25,7 +25,7 @@ router.post('/comments/add',async (req,res) => {
 router.get('/comments', async (req,res) => {
 
     try{
-        const comments = await commentsSchema.find({}, {"comments": 1 });
+        const comments = await commentsSchema.find({});
         console.log(comments)
         res.status(200).send({success: true, comments});
     }catch (e){

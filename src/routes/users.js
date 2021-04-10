@@ -40,8 +40,8 @@ userRouter.post('/signup', async (request, response) =>{
 
 userRouter.post('/login', async (req, res) => {
     try {
-        const {username, password} = req.body
-        const user = await signUpTemplateCopy.findOne({username: username})
+        const {email, password} = req.body
+        const user = await signUpTemplateCopy.findOne({email: email})
         
         if (!user) {
             console.log("User does not exist")

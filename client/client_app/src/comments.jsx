@@ -5,10 +5,10 @@ import Button from 'react-bootstrap/Button';
 
 
 
-
 export const Comments = props => {
 const [ comment, setComment] = useState(null)
 const [rating , setRating] = useState(0)
+const [showNickName, setShowNickName] = useState(false)
 
 function getComment(event)
 {
@@ -18,16 +18,17 @@ const ratingChanged = (rating) =>{
   setRating(rating)
 }
 
-
+const getCheckboxValue = (event) => {
+  setShowNickName(event.target.checked)
+}
 
 const submitData = () => {
   let payload = {
     comments: comment, 
     starRating: rating, 
     title: props.bookTitle, 
-    username: "JC TEST USER"
+    username: showNickName  ? JSON.parse(localStorage.getItem('user')).nickname : "anonymous"
   }
-  
   axios({
     method: 'post',
     url: 'http://localhost:5000/comments/add',  
@@ -35,6 +36,11 @@ const submitData = () => {
   });
 }
 
+const checkboxStyle =  {
+  position: "relative", 
+  opacity: "100", 
+  pointerEvents: "all",
+marginRight: "10px"}
 
   return (     
   <div>
@@ -45,14 +51,15 @@ const submitData = () => {
     size = {30} 
     count = {5} 
     isHalf = {true} 
-    onChange = {ratingChanged}        
+    onChange = {ratingChanged}    
     />
 
 
     <td><input style = {{height:25, width:350, borderColor: 'grey', borderWidth:2}} maxLength = {200}
     type = "text" value={comment} onChange={getComment}/></td>
     <div class="commentbox"></div> 
-
+   <input type="checkbox" style={checkboxStyle} id="nickname" onChange={getCheckboxValue}></input>    
+    <label for="nickname"> show nickmame?</label>
     <td><Button variant ="outline-dark" onClick = {submitData} >Add Comment</Button></td>
     <br></br>
     <br></br>
@@ -64,5 +71,7 @@ const submitData = () => {
 }
 
 
-
+    /* position: relative; */
+    /* opacity: 0; */
+    /* pointer-events: none; */
 export default Comments;

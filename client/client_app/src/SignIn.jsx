@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import axios from 'axios'
 import { Redirect } from "react-router-dom";
-import {
-    BrowserRouter as HashRouter,
-    Route,
-    NavLink,
-    Redirect
-  } from "react-router-dom";
-import Cart from "./Cart"
 
 
 class SignIn extends Component {

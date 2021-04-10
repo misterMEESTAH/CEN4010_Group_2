@@ -33,16 +33,15 @@ import axios from "axios";
       const {isLoading, book, comments} = this.state;
       if (isLoading){
         return <div className='App'>Loading...</div>
+        
       }
       let commentsList = [];
-      console.log("gonzalez " + comments)
-      console.log(comments.length)
       let newestBook = comments.length - 1
       let secondNewestBook = comments.length - 2 
       
-
-      commentsList.push(<li>{comments[newestBook].comments}</li>)
-      commentsList.push(<li>{comments[secondNewestBook].comments}</li>)
+      
+      commentsList.push(<li>{comments[newestBook].comments} {comments[newestBook].starRating} {comments[newestBook].username}</li>)
+      commentsList.push(<li>{comments[secondNewestBook].comments}  {comments[secondNewestBook].starRating} {comments[secondNewestBook].username}</li>)
 
       return (
         <div>
