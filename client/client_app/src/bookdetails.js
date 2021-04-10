@@ -56,21 +56,10 @@ import axios from "axios";
               <h3>Category: {book['category']}</h3>
               <h3>Format: {book['format']}</h3>
               <h3>Price: {book['price']}</h3>
-              <h4>Rating: {book['rating']}</h4>
+              <h3>Rating: {book['rating']}</h4>
+              <h3>Description:</h3> <p>{book['description']}</p> 
            
-          </ul>
-         
-         
-          <p>Cras facilisis urna ornare ex volutpat, et
-          convallis erat elementum. Ut aliquam, ipsum vitae
-          gravida suscipit, metus dui bibendum est, eget rhoncus nibh
-          metus nec massa. Maecenas hendrerit laoreet augue
-          nec molestie. Cum sociis natoque penatibus et magnis
-          dis parturient montes, nascetur ridiculus mus.</p>
-   
-          <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
-
-          
+          </ul> 
           
           <Comments bookTitle={book.title}/>
 
