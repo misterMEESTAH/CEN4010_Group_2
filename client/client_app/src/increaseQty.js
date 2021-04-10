@@ -2,10 +2,8 @@ import React from "react";
 import './App.css';
 import updateUser from './updateUser'
 
-
-function DeleteItem (book) {
-    const deleteBook = async () => {
-        
+function IncreaseQty (book) {
+    const addBook = async () => {
         if(localStorage.getItem('user') === null || !localStorage.getItem('user')){
             localStorage.setItem('user', JSON.stringify({}))
         }
@@ -15,29 +13,33 @@ function DeleteItem (book) {
         }
         let cart = user['cart'];
         
-        for(let i = 0; i < cart.length; i+= 1){
+        let inCart = false;
+        for(let i = 0; i < cart.length; i++){
             if(cart[i]['book']['title'] === book['book']['title']){
-                cart[i]['book']['quantity'] = cart[i]['book']['quantity'] - 1;
-                if (cart[i]['book']['quantity'] === 0) {
-                    cart.splice(i,1)
-                }
+                cart[i]['book']['quantity'] = cart[i]['book']['quantity'] + 1;
+                console.log(cart[i]['book'])
+                inCart = true;
             }
         }
-        
+        if(!inCart){
+            cart.push(book)
+        }
         user['cart'] = cart
         if(user['email']) {
             user = await updateUser(user);
         }
         localStorage.setItem('user', JSON.stringify(user))
 
+
         window.location.reload();
         return false;
+        
     }
-            return (
-              <div>
-                <button onClick={() => deleteBook(book)}>-</button>
-              </div>
-            )
-          }
-    
-export default DeleteItem;
+    return(
+    <div>
+        <button className="increaseQtyBtn" onClick={() => addBook(book)}>+</button>
+    </div>
+    );
+}
+
+export default IncreaseQty;

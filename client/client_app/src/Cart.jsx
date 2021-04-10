@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import './App.css';
 import BookList from "./bookList";
 import DeleteItem from "./deleteItem";
+import IncreaseQty from "./increaseQty";
 
 
 function BookItem(book) {
@@ -14,6 +15,7 @@ function BookItem(book) {
         <h4>Price: {book['price']}</h4>
         <h5>Quantity: {book['quantity']}</h5>
        <DeleteItem book={book}></DeleteItem>
+       <IncreaseQty book={book}></IncreaseQty>
       </li>
     )
   }
