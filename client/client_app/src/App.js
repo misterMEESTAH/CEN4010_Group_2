@@ -10,6 +10,7 @@ import Browse from "./browse";
 import Users from "./Users";
 import WishList from "./WishList";
 import BookDetails from "./BookDetails";
+import AuthorDetails from "./AuthorDetails";
 
 function App() {
   return (
@@ -22,13 +23,17 @@ function App() {
                     <li><NavLink to = "/Users">Users</NavLink></li>
                     <li><NavLink to = "/WishList">WishList</NavLink></li>
                     <li><NavLink to = "/BookDetails">BookDetails</NavLink></li>
+                    
                 </ul>
                 <div className = "content">
                   <Route exact path="/" component={Home}/>
                   <Route path="/Browse" component={Browse}/>
                   <Route path="/Users" component={Users}/>
                   <Route path="/WishList" component={WishList}/>
-                  <Route path="/BookDetails" component={BookDetails}/>
+                  {/* <Route path="/BookDetails" component={BookDetails}/> */}
+                  {/* <Route path="/AuthorDetails" component={AuthorDetails}/> */}
+                  <Route path="/BookDetails" render={(props) => <BookDetails {...props}/>}/>
+                  <Route path="/AuthorDetails" render={(props) => <AuthorDetails {...props}/>}/>
                 </div>
                 </div>
         </HashRouter>  
