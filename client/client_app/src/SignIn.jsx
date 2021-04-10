@@ -13,18 +13,18 @@ class SignIn extends Component {
   constructor(){
     super()
     this.state = {
-        email:'',
+        username:'',
         password:'',
         loggedIn: false
     }
-    this.changeEmail = this.changeEmail.bind(this)
+    this.changeUsername = this.changeUsername.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
 
   }
-  changeEmail(event){
+  changeUsername(event){
     this.setState({
-        email:event.target.value
+        username:event.target.value
     })
   }
   changePassword(event){
@@ -32,13 +32,13 @@ class SignIn extends Component {
         password:event.target.value
     })
   }
-  
+
 
   onSubmit(event){
     event.preventDefault()
 
     const data = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     }
     console.log(data)
@@ -46,21 +46,16 @@ class SignIn extends Component {
     axios.post('http://localhost:5000/login', data)
         .then(loginuser => {
             console.log(loginuser['data']['user'])
-            if(localStorage.getItem('user') === null && localStorage.getItem('user') === null){
-              localStorage.setItem('user', JSON.stringify({}))
+            localStorage.setItem('user', JSON.stringify(loginuser['data']['user']))
               this.setState({
-                email:'',
-                password:'',
-                loggedIn: false
-              })
-            } else {
-              localStorage.setItem('user', JSON.stringify(loginuser['data']['user']))
-              this.setState({
-                email:'',
+                username:'',
                 password:'',
                 loggedIn: true
               })
-            }
+          })
+          .catch(err => {
+            console.log(err.response.data.error)
+            alert(err.response.data.error)
           })
 
     return <Redirect to="/"/>
@@ -70,9 +65,16 @@ class SignIn extends Component {
 
 
 render() {
-    let isLoggedIn = this.state.loggedIn;
-    if(isLoggedIn){
-        return <Redirect to="/"/>
+  if(localStorage.getItem('user')){
+        return (
+          <div>
+            <h1>Already Logged In</h1>
+            <button onClick={() => {
+              localStorage.removeItem('user')
+              window.location.reload(false);
+            }}> Logout </button>
+          </div>
+        )
     }
   return (
       <div>
@@ -81,9 +83,9 @@ render() {
                   <form onSubmit={this.onSubmit}>
                       <h1> Login Credentials </h1>
                       <input type = 'text'
-                      placeholder='Email'
-                      onChange={this.changeEmail}
-                      value={this.state.email}
+                      placeholder='Username'
+                      onChange={this.changeUsername}
+                      value={this.state.username}
                       className='form-control form-group'
                       />
 
