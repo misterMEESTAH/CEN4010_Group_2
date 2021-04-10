@@ -1,0 +1,9 @@
+POST http://localhost:5000/comments/add
+Content-Type: applicaton/json
+
+{
+    "username":"JcolonTest",
+    "comments":"Test-This book sucked",
+    "starRating":".5",
+    "title":"Test BOOk"
+}
