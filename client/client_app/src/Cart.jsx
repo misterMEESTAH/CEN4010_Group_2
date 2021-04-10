@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import './App.css';
 import BookList from "./bookList";
-
-
-function deleteItem() {
-    localStorage.getItem('cart').removeItem("book");
-  };
+import DeleteItem from "./deleteItem";
 
 
 function BookItem(book) {
@@ -17,11 +13,13 @@ function BookItem(book) {
         <h3>Rating: {book['rating']}</h3>
         <h4>Price: {book['price']}</h4>
         <h5>Quantity: {book['quantity']}</h5>
-        {/* <deleteItem book={book}></deleteItem> */}
-        {/* <button className="removeItemBtns" onClick={() => deleteItem(book)}>Remove</button> */}
+       <DeleteItem book={book}></DeleteItem>
       </li>
     )
   }
+
+
+
 
 function Cart () {
     const [cart, setCart] = React.useState([]);
@@ -35,16 +33,27 @@ function Cart () {
             user['cart'] = []
         }
         setCart(user['cart'].map((book) => {
-            return book['book']
+            return book['book'];
+           
         }));
+
     }, []);
 
 
-    return(
-        <div>
-            {BookList(cart, BookItem)}
-            
-        </div>
+
+
+
+    return (
+        <li>
+            <div className="cart-left-side">
+                {BookList(cart, BookItem)}
+            </div>
+
+            <div className="cart-total">
+                {/* <h1>Total: ${sumTotal}</h1> */}
+                
+            </div>
+        </li>
     )
 }
 
