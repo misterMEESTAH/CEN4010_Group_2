@@ -7,6 +7,7 @@ function AddToCart (book) {
         if(localStorage.getItem('user') === null || !localStorage.getItem('user')){
             localStorage.setItem('user', JSON.stringify({}))
         }
+        console.log(book)
         let user = JSON.parse(localStorage.getItem('user'));
         if (!user['cart']) {
             user['cart'] = []
@@ -16,7 +17,7 @@ function AddToCart (book) {
         let inCart = false;
         for(let i = 0; i < cart.length; i++){
             if(cart[i]['book']['title'] === book['book']['title']){
-                cart[i]['book']['quantity'] = cart[i]['book']['quantity'] + 1;
+                cart[i]['book']['quantity'] = cart[i]['book']['quantity'] + book['book']['quantity'];
                 console.log(cart[i]['book'])
                 inCart = true;
             }
@@ -32,7 +33,7 @@ function AddToCart (book) {
     }
     return(
     <div>
-        <button className="addToCartBtn" onClick={() => addBook(book)}>Add To Cart</button>
+        <button className="waves-effect waves-light btn" onClick={() => addBook(book)}>Add To Cart</button>
     </div>
     );
 }
