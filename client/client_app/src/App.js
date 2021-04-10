@@ -12,8 +12,9 @@ import WishList from "./WishList";
 import './load_books';
 import BookDetails from "./bookdetails";
 import Cart from "./Cart"
-import React from "react";
+import React, { useEffect } from "react";
 import SignIn from './SignIn';
+import Profile from './Profile'
 
 function App() {
   return (
@@ -23,11 +24,12 @@ function App() {
                 <ul className="header">
                     <li><NavLink exact to = "/">Home</NavLink></li>
                     <li><NavLink to = "/Browse">Browse</NavLink></li>
-                    <li><NavLink to = "/Users">Users</NavLink></li>
+                    <li><NavLink to = "/Users">Register</NavLink></li>
                     <li><NavLink to = "/WishList">WishList</NavLink></li>
                     <li><NavLink to = "/BookDetails">BookDetails</NavLink></li>
                     <li><NavLink to = "/Cart">Cart</NavLink></li>
                     <li><NavLink to = "/SignIn">Sign In</NavLink></li>
+                    <li><NavLink to = "/Profile">My Profile</NavLink></li>
                 </ul>
                 <div className = "content">
                   <Route exact path="/" component={Home}/>
@@ -37,10 +39,10 @@ function App() {
                   <Route path="/BookDetails" component={BookDetails}/>
                   <Route path="/Cart" component={Cart}/>
                   <Route path="/SignIn" component={SignIn}/>
+                  <Route path="/Profile" component={Profile}/>
                 </div>
-                </div>
+            </div>
         </BrowserRouter>  
-        
   );
 }
 

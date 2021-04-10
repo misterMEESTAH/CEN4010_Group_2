@@ -5,6 +5,7 @@ import DeleteItem from "./deleteItem";
 import IncreaseQty from "./increaseQty";
 
 
+
 function BookItem(book) {
     return (
       <li key={book['title']}>
@@ -16,12 +17,10 @@ function BookItem(book) {
         <h5>Quantity: {book['quantity']}</h5>
        <DeleteItem book={book}></DeleteItem>
        <IncreaseQty book={book}></IncreaseQty>
+
       </li>
     )
   }
-
-
-
 
 function Cart () {
     const [cart, setCart] = React.useState([]);
@@ -53,7 +52,6 @@ function Cart () {
 
             <div className="cart-total">
                 {/* <h1>Total: ${sumTotal}</h1> */}
-                
             </div>
         </li>
     )

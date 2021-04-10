@@ -8,12 +8,9 @@
   -moz-columns: 2;
 }
 
-
 .cart-left-side {
   height:100%;
   width: 100%;
-
-
 }
 
 .cart-total {
@@ -21,3 +18,8 @@
   height:100%;
   width: 100%;
 } 
+
+ .Dropdown{
+  color: rgb(7, 7, 7); 
+}
+
