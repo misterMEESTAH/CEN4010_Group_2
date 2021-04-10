@@ -19,6 +19,4 @@ function AddToWishlist (book) {
     );
 }
 
-
-
 export default (AddToWishlist);

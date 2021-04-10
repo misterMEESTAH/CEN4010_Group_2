@@ -257,6 +257,7 @@ function Browse() {
         {key: 'Date', text: 'Date', value: 'date'}]}
       />
       <button className= "waves-effect waves-light btn" onClick={changeSortDirection}>{direction}</button>
+
       <div className="book-list">
         <button className= "waves-effect waves-light btn" onClick={async () => getBooks()}>Get Books</button>
         {BookList(changePage(), BookItem)}
@@ -264,6 +265,7 @@ function Browse() {
         <p>Page: {pageNumber}</p>
         {!hideNext && <button className= "waves-effect waves-light btn" onClick={() => nextPage()}>Next</button>}
       </div>
+
     </div>
   );
 }
