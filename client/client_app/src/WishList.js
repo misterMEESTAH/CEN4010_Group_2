@@ -31,6 +31,7 @@ class WishList extends Component{
         }
         this.setState({wishlist: wishlist})
         user['wishlist'] = this.state.wishlist;
+        localStorage.setItem('user', JSON.stringify(user))
     }
     //to add to the item quantity
     addQuantity = (book)=>{
