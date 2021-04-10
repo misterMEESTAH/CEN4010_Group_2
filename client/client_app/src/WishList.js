@@ -7,24 +7,66 @@ import AddToCart from './AddToCart'
 
 class WishList extends Component{
 
+    constructor(){
+        super()
+        if(localStorage.getItem('user') === null || !localStorage.getItem('user')){
+            localStorage.setItem('user', JSON.stringify({}))
+        }
+        let user = JSON.parse(localStorage.getItem('user'))
+        if(!user['wishlist']){
+            user['wishlist'] = []
+        }
+        this.state = {
+            wishlist: user['wishlist']
+        }
+    }
     //to remove the item completely
     remove = (book)=>{
-        this.props.removeItem(book);
+        let user = JSON.parse(localStorage.getItem('user'))
+        const wishlist = this.state.wishlist
+        for(let i = 0; i < wishlist.length; i++){
+            if(wishlist[i]['book']['title'] === book['title']){
+                wishlist.splice(i, 1);
+            }
+        }
+        this.setState({wishlist: wishlist})
+        user['wishlist'] = this.state.wishlist;
     }
     //to add to the item quantity
     addQuantity = (book)=>{
-        this.props.addQuantity(book);
+        let user = JSON.parse(localStorage.getItem('user'))
+        const wishlist = this.state.wishlist
+        for(let i = 0; i < wishlist.length; i++){
+            if(wishlist[i]['book']['title'] === book['title']){
+                wishlist[i]['book']['quantity'] = wishlist[i]['book']['quantity'] + 1
+            }
+        }
+        this.setState({wishlist: wishlist})
+        user['wishlist'] = this.state.wishlist;
+        localStorage.setItem('user', JSON.stringify(user))
     }
-    //to substruct from the item quantity
+    //to subtract from the item quantity
     subtractQuantity = (book)=>{
-        this.props.subtractQuantity(book);
+        let user = JSON.parse(localStorage.getItem('user'))
+        const wishlist = this.state.wishlist
+        for(let i = 0; i < wishlist.length; i++){
+            if(wishlist[i]['book']['title'] === book['title']){
+                wishlist[i]['book']['quantity'] = wishlist[i]['book']['quantity'] - 1
+                if(wishlist[i]['book']['quantity'] <= 0){
+                    wishlist.splice(i, 1);
+                }
+            }
+        }
+        this.setState({wishlist: wishlist})
+        user['wishlist'] = this.state.wishlist;
+        localStorage.setItem('user', JSON.stringify(user))
     }
     render(){
       console.log("props")
       console.log(this.props)         
-        let addedItems = this.props.items.length > 0 ?
+        let addedItems = this.state.wishlist.length > 0 ?
             (  
-                this.props.items.map(item=>{
+                this.state.wishlist.map(item=>{
                     return(
                        
                         <li className="collection-item avatar" key={item.book._id}>
@@ -40,8 +82,8 @@ class WishList extends Component{
                                             <b>Quantity: {item.book.quantity}</b> 
                                         </p>
                                         <div className="add-remove">
-                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.addQuantity(item.book._id)}}>arrow_drop_up</i></Link>
-                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.subtractQuantity(item.book._id)}}>arrow_drop_down</i></Link>
+                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.addQuantity(item.book)}}>arrow_drop_up</i></Link>
+                                            <Link to="/WishList"><i className="material-icons" onClick={()=>{this.subtractQuantity(item.book)}}>arrow_drop_down</i></Link>
                                         </div>
                                         <button className="waves-effect waves-light btn pink remove" onClick={()=>{this.remove(item.book)}}>Remove</button>
                                         <AddToCart book={item.book}></AddToCart>
