@@ -41,7 +41,6 @@ function App() {
                   {/* <Route path="/AuthorDetails" component={AuthorDetails}/> */}
                   <Route path="/BookDetails" render={(props) => <BookDetails {...props}/>}/>
                   <Route path="/AuthorDetails" render={(props) => <AuthorDetails {...props}/>}/>
-                  <Route path="/BookDetails" component={BookDetails}/>
                   <Route path="/Cart" component={Cart}/>
                   <Route path="/SignIn" component={SignIn}/>
                   <Route path="/Profile" component={Profile}/>
