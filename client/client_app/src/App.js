@@ -9,6 +9,7 @@ import Home from "./Home";
 import Browse from "./browse";
 import Users from "./Users";
 import WishList from "./WishList";
+import AuthorDetails from "./AuthorDetails";
 import './load_books';
 import BookDetails from "./bookdetails";
 import Cart from "./Cart"
@@ -36,7 +37,10 @@ function App() {
                   <Route path="/Browse" component={Browse}/>
                   <Route path="/Users" component={Users}/>
                   <Route path="/WishList" component={WishList}/>
-                  <Route path="/BookDetails" component={BookDetails}/>
+                  {/* <Route path="/BookDetails" component={BookDetails}/> */}
+                  {/* <Route path="/AuthorDetails" component={AuthorDetails}/> */}
+                  <Route path="/BookDetails" render={(props) => <BookDetails {...props}/>}/>
+                  <Route path="/AuthorDetails" render={(props) => <AuthorDetails {...props}/>}/>
                   <Route path="/Cart" component={Cart}/>
                   <Route path="/SignIn" component={SignIn}/>
                   <Route path="/Profile" component={Profile}/>
