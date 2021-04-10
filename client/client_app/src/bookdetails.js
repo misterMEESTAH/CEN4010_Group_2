@@ -56,7 +56,7 @@ import axios from "axios";
               <h3>Category: {book['category']}</h3>
               <h3>Format: {book['format']}</h3>
               <h3>Price: {book['price']}</h3>
-              <h3>Rating: {book['rating']}</h4>
+              <h3>Rating: {book['rating']}</h3>
               <h3>Description:</h3> <p>{book['description']}</p> 
            
           </ul> 
