@@ -6,6 +6,7 @@ require('dotenv').config();
 const cors = require('cors');
 const booksrouter = require('./routes/bookRoutes');
 const commentsRouter = require('./routes/commentsRoutes');
+const userRouter = require('./routes/users')
 const { Mongoose } = require('mongoose');
 require('./db/index');
 //JC test
