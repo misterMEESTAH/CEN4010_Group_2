@@ -20,11 +20,14 @@ function Cart () {
     const [cart, setCart] = React.useState([]);
 
     useEffect(() => {
-        if(localStorage.getItem('cart') === null){
-            localStorage.setItem('cart', JSON.stringify([]))
+        if(localStorage.getItem('user') === null || !localStorage.getItem('user')){
+            localStorage.setItem('user', JSON.stringify({}))
         }
-    
-        setCart(JSON.parse(localStorage.getItem('cart')).map((book) => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (!user['cart']) {
+            user['cart'] = []
+        }
+        setCart(user['cart'].map((book) => {
             return book['book']
         }));
     }, [])

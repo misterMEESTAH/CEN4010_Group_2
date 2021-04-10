@@ -41,7 +41,7 @@ function App() {
                   <Route path="/SignIn" component={SignIn}/>
                   <Route path="/Profile" component={Profile}/>
                 </div>
-                </div>
+            </div>
         </BrowserRouter>  
 
   );

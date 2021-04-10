@@ -13,18 +13,18 @@ class SignIn extends Component {
   constructor(){
     super()
     this.state = {
-        username:'',
+        email:'',
         password:'',
         loggedIn: false
     }
-    this.changeUsername = this.changeUsername.bind(this)
+    this.changeEmail = this.changeEmail.bind(this)
     this.changePassword = this.changePassword.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
 
   }
-  changeUsername(event){
+  changeEmail(event){
     this.setState({
-        username:event.target.value
+        email:event.target.value
     })
   }
   changePassword(event){
@@ -32,13 +32,13 @@ class SignIn extends Component {
         password:event.target.value
     })
   }
-
+  
 
   onSubmit(event){
     event.preventDefault()
 
     const data = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     }
     console.log(data)
@@ -46,16 +46,21 @@ class SignIn extends Component {
     axios.post('http://localhost:5000/login', data)
         .then(loginuser => {
             console.log(loginuser['data']['user'])
-            localStorage.setItem('user', JSON.stringify(loginuser['data']['user']))
+            if(localStorage.getItem('user') === null && localStorage.getItem('user') === null){
+              localStorage.setItem('user', JSON.stringify({}))
               this.setState({
-                username:'',
+                email:'',
+                password:'',
+                loggedIn: false
+              })
+            } else {
+              localStorage.setItem('user', JSON.stringify(loginuser['data']['user']))
+              this.setState({
+                email:'',
                 password:'',
                 loggedIn: true
               })
-          })
-          .catch(err => {
-            console.log(err.response.data.error)
-            alert(err.response.data.error)
+            }
           })
 
     return <Redirect to="/"/>
@@ -65,16 +70,9 @@ class SignIn extends Component {
 
 
 render() {
-  if(localStorage.getItem('user')){
-        return (
-          <div>
-            <h1>Already Logged In</h1>
-            <button onClick={() => {
-              localStorage.removeItem('user')
-              window.location.reload(false);
-            }}> Logout </button>
-          </div>
-        )
+    let isLoggedIn = this.state.loggedIn;
+    if(isLoggedIn){
+        return <Redirect to="/"/>
     }
   return (
       <div>
@@ -83,9 +81,9 @@ render() {
                   <form onSubmit={this.onSubmit}>
                       <h1> Login Credentials </h1>
                       <input type = 'text'
-                      placeholder='Username'
-                      onChange={this.changeUsername}
-                      value={this.state.username}
+                      placeholder='Email'
+                      onChange={this.changeEmail}
+                      value={this.state.email}
                       className='form-control form-group'
                       />
 

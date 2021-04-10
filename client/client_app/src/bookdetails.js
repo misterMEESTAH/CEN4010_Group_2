@@ -2,34 +2,48 @@ import React, { Component } from "react";
 import './App.css';
 import booksFromDB from "./load_books"
 import PrismaZoom from 'react-prismazoom';
+import Comments  from './comments'
+import axios from "axios";
 
-const book = props => (
-    <tr>
-      <td>{props.book.title}</td>
-      <td><img width = {300} height = {500} src={props.book.image} /> </td>
-    </tr>
-  )
+
 
   class BookDetails extends Component{
     constructor(props) {
       super(props);
-      this.state = {isLoading: true, book: {}};
+      this.state = {
+        isLoading: true, 
+        book: {}, 
+        comments: []
+      };
+    
   }
   
-  componentDidMount() {
-    booksFromDB.then(books => {
-      this.setState({book: books[0]})
-      this.setState({isLoading: false})
-      console.log(this.state.book)
-      })
+   async componentDidMount() {
+    let books = await booksFromDB        
+    let commentsResponse = await axios.get('http://localhost:5000/comments')    
+     await this.setState({
+       comments: commentsResponse.data.comments,
+      book: books[0],
+    isLoading:false
+  })
   }
 
     
     render() {
-      const {isLoading, book} = this.state;
+      const {isLoading, book, comments} = this.state;
       if (isLoading){
         return <div className='App'>Loading...</div>
       }
+      let commentsList = [];
+      console.log("gonzalez " + comments)
+      console.log(comments.length)
+      let newestBook = comments.length - 1
+      let secondNewestBook = comments.length - 2 
+      
+
+      commentsList.push(<li>{comments[newestBook].comments}</li>)
+      commentsList.push(<li>{comments[secondNewestBook].comments}</li>)
+
       return (
         <div>
           <ul>
@@ -46,7 +60,8 @@ const book = props => (
               <h4>Rating: {book['rating']}</h4>
            
           </ul>
-        
+         
+         
           <p>Cras facilisis urna ornare ex volutpat, et
           convallis erat elementum. Ut aliquam, ipsum vitae
           gravida suscipit, metus dui bibendum est, eget rhoncus nibh
@@ -55,6 +70,17 @@ const book = props => (
           dis parturient montes, nascetur ridiculus mus.</p>
    
           <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
+
+          
+          
+          <Comments bookTitle={book.title}/>
+
+
+          <ul>
+                <br></br>              
+           {commentsList}
+          </ul>
+
         </div>
       );
     }
