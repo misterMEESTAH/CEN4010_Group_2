@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
@@ -14,6 +15,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-commentbox": "^3.0.1",
+    "react-devtools": "^4.11.0",
     "react-dom": "^17.0.2",
     "react-inner-image-zoom": "^2.0.1",
     "react-medium-image-zoom": "^4.3.1",
