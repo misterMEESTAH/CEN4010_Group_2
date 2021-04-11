@@ -3,8 +3,6 @@ import {Link } from 'react-router-dom';
 import './App.css';
 import booksFromDB from "./load_books"
 import PrismaZoom from 'react-prismazoom';
-import authorFromDB from "./load_authors";
-import AuthorDetails from "./AuthorDetails";
 import Comments  from './comments'
 import axios from "axios";
 
@@ -17,7 +15,7 @@ import axios from "axios";
         book: {}, 
         comments: []
       };
-    
+      console.log(this.props)
   }
   
    async componentDidMount() {
@@ -25,10 +23,10 @@ import axios from "axios";
     let commentsResponse = await axios.get('http://localhost:5000/comments')    
     this.setState({
       comments: commentsResponse.data.comments,
-      book: books[0],
+      book: this.props.book,
       isLoading:false
-  })
-  //console.log (this.state.comments)
+    })
+    console.log(this.state.comments)
   }
 
     

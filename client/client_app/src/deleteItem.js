@@ -30,6 +30,7 @@ function DeleteItem (book) {
         }
         localStorage.setItem('user', JSON.stringify(user))
 
+        // refreshing the page to delete item 
         window.location.reload();
         return false;
     }
