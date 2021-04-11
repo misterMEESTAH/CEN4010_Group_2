@@ -60,7 +60,7 @@ class SignIn extends Component {
 
 
 render() {
-  if(localStorage.getItem('user')){
+  if(localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))['username']){
         return (
           <div>
             <h1>Already Logged In</h1>

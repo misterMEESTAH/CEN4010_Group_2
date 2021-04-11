@@ -66,13 +66,15 @@ import AuthorDetails from "./AuthorDetails"
                     <PrismaZoom maxZoom={1.5}>
                       <img src={book['image']} alt='book cover' />
                     </PrismaZoom>
-                    <button onClick={() => {this.setState({authordetails: true})}}>{book['author']}</button>
+                    <div class="col">
+                    <button className= "waves-effect waves-light btn" onClick={() => {this.setState({authordetails: true})}}>{book['author']}</button>
                       <div class='card-action'>
                         <h3>Category: {book['category']}</h3>
                         <h3>Format: {book['format']}</h3>
                         <h3>Price: {book['price']}</h3>
                         <h3>Rating: {book['rating']}</h3>
                         <h3>Description:</h3> <p>{book['description']}</p> 
+                      </div>
                       </div>
                   </div>
                 </div>
