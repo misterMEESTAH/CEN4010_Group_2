@@ -23,17 +23,26 @@ const getCheckboxValue = (event) => {
 }
 
 const submitData = () => {
+    let user = JSON.parse(localStorage.getItem('user'))
+    let nickname = "anonymous"
+    if (user) {
+      nickname = user.nickname
+    }
+ 
   let payload = {
     comments: comment, 
     starRating: rating, 
     title: props.bookTitle, 
-    username: showNickName  ? JSON.parse(localStorage.getItem('user')).nickname : "anonymous"
+    username: showNickName ? nickname : "anonymous"
+    
   }
   axios({
     method: 'post',
     url: 'http://localhost:5000/comments/add',  
     data: payload
   });
+
+  window.location.reload(false);
 }
 
 const checkboxStyle =  {
