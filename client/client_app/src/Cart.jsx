@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-import { get } from "superagent";
 import './App.css';
-import BookList from "./bookList";
 import DeleteItem from "./deleteItem";
 import IncreaseQty from "./increaseQty";
 
 
 
-function BookItem(book) {
+function BookItem(book, removefunc) {
     return (
       <li key={book['title']}>
         <img src={book['image']} alt="book cover" />
@@ -18,8 +16,19 @@ function BookItem(book) {
         <h5>Quantity: {book['quantity']}</h5>
        <DeleteItem book={book}></DeleteItem>
        <IncreaseQty book={book}></IncreaseQty>
-
+       <button onClick={() => {removefunc(book)}}>Remove</button>
       </li>
+    )
+  }
+
+function BookList(books, bookLayout, bookfunc) {
+    if(!Array.isArray(books)){
+      books = []
+    }
+    return (
+      <div className="bookList" data-columns="2">
+          <ul>{books.map((book) => bookLayout(book, bookfunc))}</ul>
+      </div>
     )
   }
 
@@ -54,12 +63,29 @@ function Cart () {
     // FORMATTING THE TOTAL TO 2 DECIMAL PLACES
     const result = getTotalPrice().toFixed(2);
     console.log(result); 
+
+    const removeButton = (book) => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        let userCart = user['cart']
+        console.log(userCart)
+        for(let i = 0; i < userCart.length; i++){
+            if(userCart[i]['book']['title'] === book['title']){
+                console.log(cart[i]['book'])
+                userCart.splice(i, 1);
+            }
+        }
+        setCart(userCart.map((book) => {
+            return book['book'];
+        }));
+        user['cart'] = userCart
+        localStorage.setItem('user', JSON.stringify(user))
+    }
    
 
     return (
         <li>
             <div className="cart-left-side">
-                {BookList(cart, BookItem)}
+                {BookList(cart, BookItem, removeButton)}
             </div>
 
             <div className="cart-total">
