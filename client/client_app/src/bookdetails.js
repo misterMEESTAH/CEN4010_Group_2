@@ -5,6 +5,7 @@ import booksFromDB from "./load_books"
 import PrismaZoom from 'react-prismazoom';
 import Comments  from './comments'
 import axios from "axios";
+import Browse from "./browse";
 
 
   class BookDetails extends Component{
@@ -24,7 +25,8 @@ import axios from "axios";
     this.setState({
       comments: commentsResponse.data.comments,
       book: this.props.book,
-      isLoading:false
+      isLoading:false,
+      back: false
     })
     console.log(this.state.comments)
   }
@@ -44,10 +46,14 @@ import axios from "axios";
       commentsList.push(<li>{comments[newestBook].comments} {comments[newestBook].starRating} {comments[newestBook].username}</li>)
       commentsList.push(<li>{comments[secondNewestBook].comments}  {comments[secondNewestBook].starRating} {comments[secondNewestBook].username}</li>)
 
+      if(this.state.back){
+        return <Browse></Browse>;
+      }
+
       return (
         <div>
-          <ul>
-           
+          <button onClick={() => {this.setState({back: true})}}>Back</button>
+          <ul> 
               <h1>{book['title']}</h1>
               <PrismaZoom maxZoom={1.5}>
               <img src={book['image']} alt='book cover' />
