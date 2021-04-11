@@ -3,11 +3,11 @@ import './App.css';
 import booksFromDB from "./load_books"
 import { Dropdown } from 'semantic-ui-react'
 import AddToCart from "./AddToCart"
-import BookList from "./bookList"
 import AddToWishlist from "./AddToWishlist"
+import BookDetails from './bookdetails'
 
 
-function BookItem(book) {
+function BookItem(book, bookdetails) {
   return (
     <li key={book['title']}>
       <img src={book['image']} alt="book cover" />
@@ -18,7 +18,19 @@ function BookItem(book) {
       <h5>Publishing Data: {new Date(book['date']).toLocaleDateString()}</h5>
       <AddToCart book={book}></AddToCart>
       <AddToWishlist book={book}></AddToWishlist>
+      <button onClick={() => {bookdetails(book)}}>Book Details</button>
     </li>
+  )
+}
+
+function BookList(books, bookLayout, bookdetails) {
+  if(!Array.isArray(books)){
+    books = []
+  }
+  return (
+    <div className="bookList" data-columns="2">
+        <ul>{books.map((book) => bookLayout(book, bookdetails))}</ul>
+    </div>
   )
 }
 
@@ -33,6 +45,8 @@ function Browse() {
   const [hideNext, setHideNext] = React.useState(false);
   const [hidePrev, setHidePrev] = React.useState(true);
   const [direction, setDirection] = React.useState("Ascending");
+  const [toBookDetails, setToBookDetails] = React.useState(false);
+  const [bookDetail, setBookDetail] = React.useState({});
 
   const getBooks = async () => {
     let books = [];
@@ -93,6 +107,15 @@ function Browse() {
 
   if(isLoading){
     return <div className="App">Loading..</div>
+  }
+
+  if(toBookDetails){
+    return <BookDetails book={bookDetail}></BookDetails>
+  }
+  const sendToBookDetails = (book) => {
+    setBookDetail(book)
+    setToBookDetails(true)
+    console.log("Activ")
   }
   const search = (query) => {
     setSearchQuery(query)
@@ -260,7 +283,7 @@ function Browse() {
 
       <div className="book-list">
         <button className= "waves-effect waves-light btn" onClick={async () => getBooks()}>Get Books</button>
-        {BookList(changePage(), BookItem)}
+        {BookList(changePage(), BookItem, sendToBookDetails)}
         {!hidePrev && <button className= "waves-effect waves-light btn" onClick={() => prevPage()}>Prev</button>}
         <p>Page: {pageNumber}</p>
         {!hideNext && <button className= "waves-effect waves-light btn" onClick={() => nextPage()}>Next</button>}
