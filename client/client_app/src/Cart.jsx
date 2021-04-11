@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { get } from "superagent";
 import './App.css';
 import BookList from "./bookList";
 import DeleteItem from "./deleteItem";
@@ -20,8 +21,7 @@ function BookItem(book) {
     )
   }
 
-
-
+  
 
 function Cart () {
     const [cart, setCart] = React.useState([]);
@@ -40,10 +40,21 @@ function Cart () {
         }));
 
     }, []);
-
-
-
-
+    
+    // TOTALING THE PRICES OF BOOKS IN CART
+    const getTotalPrice = () => {
+        let sum = 0
+        cart.map((book) => {
+            sum += (book['price'] * book['quantity'])
+            return book
+        })
+        return sum;
+    }
+    
+    // FORMATTING THE TOTAL TO 2 DECIMAL PLACES
+    const result = getTotalPrice().toFixed(2);
+    console.log(result); 
+   
 
     return (
         <li>
@@ -52,8 +63,7 @@ function Cart () {
             </div>
 
             <div className="cart-total">
-                {/* <h1>Total: ${sumTotal}</h1> */}
-                
+                <h1>Total: ${result}</h1>
             </div>
         </li>
     )
