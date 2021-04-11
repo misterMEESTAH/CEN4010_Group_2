@@ -28,6 +28,7 @@ import axios from "axios";
       book: books[0],
       isLoading:false
   })
+  //console.log (this.state.comments)
   }
 
     
@@ -41,7 +42,7 @@ import axios from "axios";
       let newestBook = comments.length - 1
       let secondNewestBook = comments.length - 2 
       
-      
+      //console.log (this.state.comments)
       commentsList.push(<li>{comments[newestBook].comments} {comments[newestBook].starRating} {comments[newestBook].username}</li>)
       commentsList.push(<li>{comments[secondNewestBook].comments}  {comments[secondNewestBook].starRating} {comments[secondNewestBook].username}</li>)
 
