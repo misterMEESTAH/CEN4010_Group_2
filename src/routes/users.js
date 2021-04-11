@@ -72,7 +72,8 @@ userRouter.put('/update', async (req, res) => {
         wishlist,
         bought
     }
-    const updateUser = await signUpTemplateCopy.findOneAndUpdate({fullName: fullName}, fields, {new: true}).exec();
+    const updateUser = await signUpTemplateCopy.findOneAndUpdate({email: email}, fields, {new: true}).exec();
+    console.log(updateUser)
     updateUser['password'] = undefined;
     res.status(200).send({success: true, updateUser});
 } catch(e) {
