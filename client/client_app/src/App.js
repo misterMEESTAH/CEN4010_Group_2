@@ -21,13 +21,13 @@ function App() {
   return (
     <BrowserRouter>
             <div>
-                <h1>Book Barn</h1>
+                <h1 class="brand-logo">Book Barn</h1>
                 <ul className="header">
                     <li><NavLink exact to = "/">Home</NavLink></li>
                     <li><NavLink to = "/Browse">Browse</NavLink></li>
                     <li><NavLink to = "/Users">Register</NavLink></li>
                     <li><NavLink to = "/WishList">WishList</NavLink></li>
-                    <li><NavLink to = "/BookDetails">BookDetails</NavLink></li>
+                    {/* <li><NavLink to = "/BookDetails">BookDetails</NavLink></li> */}
                     <li><NavLink to = "/Cart">Cart</NavLink></li>
                     <li><NavLink to = "/SignIn">Sign In</NavLink></li>
                     <li><NavLink to = "/Profile">My Profile</NavLink></li>

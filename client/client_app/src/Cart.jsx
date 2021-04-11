@@ -3,21 +3,30 @@ import './App.css';
 import DeleteItem from "./deleteItem";
 import IncreaseQty from "./increaseQty";
 
-
-
 function BookItem(book, removefunc) {
     return (
-      <li key={book['title']}>
-        <img src={book['image']} alt="book cover" />
-        <h1>{book['title']}</h1>
-        <h2>Author: {book['author']}</h2>
-        <h3>Rating: {book['rating']}</h3>
-        <h4>Price: {book['price']}</h4>
-        <h5>Quantity: {book['quantity']}</h5>
-       <DeleteItem book={book}></DeleteItem>
-       <IncreaseQty book={book}></IncreaseQty>
-       <button onClick={() => {removefunc(book)}}>Remove</button>
-      </li>
+      <ul key={book['title']}>          
+                <div class="container">
+                    <div class="row">
+                        <div class="card grey darken-0">
+                            <div class="card-content white-text">
+                                    <img src={book['image']} alt="book cover"/>
+                                    <li class="card-title"><h1>{book['title']}</h1></li>
+                                    <li><h2>Author: {book['author']}</h2></li>
+                                    <li><h3>Rating: {book['rating']}</h3></li>
+                                    <li><h4>Price: {book['price']}</h4></li>
+                                    <li><h5>Quantity: {book['quantity']}</h5></li>
+                            </div>    
+                        <div class='card-action'>
+                            <DeleteItem book={book}></DeleteItem>
+                            <IncreaseQty book={book}></IncreaseQty>
+                            <button className= "waves-effect waves-light btn pink" onClick={() => {removefunc(book)}}>Remove</button>
+                        </div>
+                    </div>        
+                </div> 
+            </div>
+                
+      </ul>
     )
   }
 
@@ -26,9 +35,13 @@ function BookList(books, bookLayout, bookfunc) {
       books = []
     }
     return (
-      <div className="bookList" data-columns="2">
-          <ul>{books.map((book) => bookLayout(book, bookfunc))}</ul>
+        
+      <div className="box">
+          <div className="box" data-columns="2">
+            <ul>{books.map((book) => bookLayout(book, bookfunc))}</ul>
+          </div>
       </div>
+    
     )
   }
 

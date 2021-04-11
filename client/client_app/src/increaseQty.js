@@ -36,9 +36,11 @@ function IncreaseQty (book) {
         
     }
     return(
-    <div>
-        <button className="increaseQtyBtn" onClick={() => addBook(book)}>+</button>
-    </div>
+    <li class='collection-item avatar'>    
+        <div>
+            <button class= "btn-floating btn-medium waves-effect waves-light" onClick={() => addBook(book)}>+</button>
+        </div>
+    </li>    
     );
 }
 

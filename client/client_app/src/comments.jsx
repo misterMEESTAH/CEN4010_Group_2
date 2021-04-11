@@ -52,7 +52,9 @@ const checkboxStyle =  {
 marginRight: "10px"}
 
   return (     
-  <div>
+  <div class="container">
+    <div class="card">
+      <div class='card-action'>
     <h2 align = "Left" style ={{color:"black"}}>Review this Book</h2>
     <ReactStars     
     activeColor="Orange"
@@ -66,16 +68,18 @@ marginRight: "10px"}
 
     <td><input style = {{height:25, width:350, borderColor: 'grey', borderWidth:2}} maxLength = {200}
     type = "text" value={comment} onChange={getComment}/></td>
-    <div class="commentbox"></div> 
+    <div class="commentbox"> 
    <input type="checkbox" style={checkboxStyle} id="nickname" onChange={getCheckboxValue}></input>    
     <label for="nickname"> show nickmame?</label>
     <td><Button variant ="outline-dark" onClick = {submitData} >Add Comment</Button></td>
     <br></br>
     <br></br>
-    <h2>Comments</h2>
-
+    
+     
   </div>
-  
+  </div>
+  </div>    
+  </div>
   );
 }
 

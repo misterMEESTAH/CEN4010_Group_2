@@ -35,9 +35,11 @@ function DeleteItem (book) {
         return false;
     }
             return (
-              <div>
-                <button onClick={() => deleteBook(book)}>-</button>
-              </div>
+                <li class='collection-item avatar'>   
+                <div>
+                    <button class= "btn-floating btn-medium waves-effect waves-light" onClick={() => deleteBook(book)}>-</button>
+                </div>
+                </li>
             )
           }
     

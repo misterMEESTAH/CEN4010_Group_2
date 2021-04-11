@@ -52,30 +52,40 @@ import Browse from "./browse";
 
       return (
         <div>
-          <button onClick={() => {this.setState({back: true})}}>Back</button>
+          <button className= "waves-effect waves-light btn" onClick={() => {this.setState({back: true})}}>Back</button>
           <ul> 
-              <h1>{book['title']}</h1>
-              <PrismaZoom maxZoom={1.5}>
-              <img src={book['image']} alt='book cover' />
-              </PrismaZoom>
-              <li><Link to="/AuthorDetails"><a href={book['author']}>{book['author']}</a></Link></li>
-              <h3>Category: {book['category']}</h3>
-              <h3>Format: {book['format']}</h3>
-              <h3>Price: {book['price']}</h3>
-              <h3>Rating: {book['rating']}</h3>
-              <h3>Description:</h3> <p>{book['description']}</p> 
-           
+            <div class="container">
+              <div clas="row">
+                <div class="col s6">
+                  <div class="card" key={book['title']}>
+                    <PrismaZoom maxZoom={1.5}>
+                      <img src={book['image']} alt='book cover' />
+                    </PrismaZoom>
+                    <li ><Link to="/AuthorDetails"><a class="waves-effect waves-light btn" href={book['author']}>{book['author']}</a></Link></li>
+                      <div class='card-action'>
+                        <h3>Category: {book['category']}</h3>
+                        <h3>Format: {book['format']}</h3>
+                        <h3>Price: {book['price']}</h3>
+                        <h3>Rating: {book['rating']}</h3>
+                        <h3>Description:</h3> <p>{book['description']}</p> 
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>            
           </ul> 
           
           <Comments bookTitle={book.title}/>
 
+<div class="container">
+        <ul class="card">  
+            <div class="material-icons">comment<h2>Comments</h2></div>
+            <br></br>
+            <div class='card-action'><span>{commentsList}</span></div>
+        </ul>
 
-          <ul>
-                <br></br>              
-           {commentsList}
-          </ul>
-
-        </div>
+</div>
+</div>
       );
     }
   }

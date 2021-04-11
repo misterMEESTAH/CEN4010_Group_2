@@ -9,28 +9,53 @@ import BookDetails from './bookdetails'
 
 function BookItem(book, bookdetails) {
   return (
-    <li key={book['title']}>
-      <img src={book['image']} alt="book cover" />
-      <h1>{book['title']}</h1>
-      <h2>Author: {book['author']}</h2>
-      <h3>Rating: {book['rating']}</h3>
-      <h4>Price: {book['price']}</h4>
-      <h5>Publishing Data: {new Date(book['date']).toLocaleDateString()}</h5>
-      <AddToCart book={book}></AddToCart>
-      <AddToWishlist book={book}></AddToWishlist>
-      <button onClick={() => {bookdetails(book)}}>Book Details</button>
-    </li>
+    <body>
+      <div class="container">
+        <div clas="row">
+        <div class="col s6">
+                    <div class="card" key={book['title']}>
+                            <div class="card-image">
+                              <img src={book['image']} alt="book cover"/>
+                              <span className="card-title"></span>
+                              
+                              <span><button to="/" className="right btn halfway-fab waves-effect waves-light" onClick={() => {bookdetails(book)}}>Book Details</button></span>
+                              <div class='card-action'>
+                              <li class="row s6"><h1>{book['title']}</h1></li>   
+                              <li class="row s6"><h2>Author: {book['author']}</h2></li>
+                              <li class="row s6"><h3>Rating: {book['rating']}</h3></li>
+                              <li class="row s6"><h4>Price: {book['price']}</h4></li>
+                              <li class="row s6"><h5>Publishing Data: {new Date(book['date']).toLocaleDateString()}</h5></li>
+                            
+                              <div class="card-content">  
+                                <p><AddToCart book={book}></AddToCart></p>
+                                <p><AddToWishlist book={book}></AddToWishlist></p>
+                              </div>
+                            </div>
+                           </div>  
+                      </div>
+          </div>
+        </div>
+      </div>                     
+    </body>                     
+    
   )
+  
 }
+
+
 
 function BookList(books, bookLayout, bookdetails) {
   if(!Array.isArray(books)){
     books = []
   }
   return (
-    <div className="bookList" data-columns="2">
-        <ul>{books.map((book) => bookLayout(book, bookdetails))}</ul>
-    </div>
+    <body>
+      <div class="container"> 
+        <div className="bookList" data-columns="2">
+          <ul>{books.map((book) => bookLayout(book, bookdetails))}</ul>
+        </div>
+      </div>
+    </body>  
   )
 }
 

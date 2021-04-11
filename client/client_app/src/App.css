@@ -1,16 +1,37 @@
+body {
+  background-color: #74767a;
+}
 .App {
+  background-color: #74767a;
   text-align: center;
 }
-
-.bookList {
+.BookItem {
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
+  align-content: left;
+}
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
+  width: 300px ;
+}
+.bookList {
+  columns: 2;
+  column-width:50px;
+  -webkit-columns: 2;
+  -moz-columns: 4;
+  align-content: left;
+  
 }
 
 .cart-left-side {
-  height:100%;
-  width: 100%;
+  columns: 2;
+  -webkit-columns: 1;
+  -moz-columns: 2;
+  align-content:left;
 }
 
 .cart-total {
