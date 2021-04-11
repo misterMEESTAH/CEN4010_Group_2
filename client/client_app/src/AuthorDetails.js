@@ -14,14 +14,19 @@ class AuthorDetails extends Component {
 
     componentDidMount() {
       authorFromDB.then(authors => {
-        this.setState({author: authors[0]})
+        for(let i = 0; i < authors.length; i++){
+          if(this.props.author === authors[i]['name']){
+            console.log(authors[i])
+            this.setState({author: authors[i]})
+          }
+        }
         this.setState({isLoading: false})
         console.log(this.state.author)
         })
     }
   
   render() {
-      const {isLoading, author} = this.state;
+    const {isLoading, author} = this.state;
     if (isLoading){
       return <div className='App'>Loading...</div>
     }

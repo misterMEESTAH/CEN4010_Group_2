@@ -6,6 +6,7 @@ import PrismaZoom from 'react-prismazoom';
 import Comments  from './comments'
 import axios from "axios";
 import Browse from "./browse";
+import AuthorDetails from "./AuthorDetails"
 
 
   class BookDetails extends Component{
@@ -26,7 +27,8 @@ import Browse from "./browse";
       comments: commentsResponse.data.comments,
       book: this.props.book,
       isLoading:false,
-      back: false
+      back: false,
+      authordetails: false
     })
     console.log(this.state.comments)
   }
@@ -49,6 +51,9 @@ import Browse from "./browse";
       if(this.state.back){
         return <Browse></Browse>;
       }
+      if(this.state.authordetails){
+        return <AuthorDetails author={book['author']}></AuthorDetails>
+      }
 
       return (
         <div>
@@ -61,7 +66,7 @@ import Browse from "./browse";
                     <PrismaZoom maxZoom={1.5}>
                       <img src={book['image']} alt='book cover' />
                     </PrismaZoom>
-                    <li ><Link to="/AuthorDetails"><a class="waves-effect waves-light btn" href={book['author']}>{book['author']}</a></Link></li>
+                    <button onClick={() => {this.setState({authordetails: true})}}>{book['author']}</button>
                       <div class='card-action'>
                         <h3>Category: {book['category']}</h3>
                         <h3>Format: {book['format']}</h3>
